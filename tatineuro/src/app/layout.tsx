@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./_components/header";
 import { AosInit } from "./_components/aos-init";
 import Whatsapp from "./_components/whatsapp";
+import FooterDev from "./_components/footer-dev";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Whatsapp />
+        <FooterDev />
         <AosInit />
       </body>
     </html>
