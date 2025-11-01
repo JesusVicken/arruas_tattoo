@@ -68,7 +68,7 @@ export default function Contact() {
                             <p className="flex items-start justify-center md:justify-start gap-2">
                                 <MapPin className="text-gray-700 w-5 h-5 flex-shrink-0" />
                                 <span>
-                                    Águas Claras - Brasília DF <br />
+                                    Avenida Boulevard Sul, Sul (Aguas Claras), Brasília DF, 71926-250, Brasil <br />
                                     <span className="text-sm text-gray-600">
                                         Atendimento em estúdio privado com hora marcada.
                                     </span>
