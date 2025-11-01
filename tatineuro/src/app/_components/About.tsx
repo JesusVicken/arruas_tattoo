@@ -32,7 +32,7 @@ export function About() {
                         {/* Logo com animação flutuante */}
                         <div className="absolute lg:left-12 lg:-bottom-6 -bottom-4 left-1/2 transform -translate-x-1/2 lg:translate-x-0 w-20 h-20 lg:w-32 lg:h-32 rounded-2xl overflow-hidden shadow-xl animate-float">
                             <Image
-                                src="/arruaslogo.png"
+                                src="/3.png"
                                 alt="Arruas Tattoo Logo - Representação da marca"
                                 width={128}
                                 height={128}
