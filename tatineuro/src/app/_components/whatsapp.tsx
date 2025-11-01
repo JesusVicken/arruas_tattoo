@@ -3,8 +3,8 @@
 import Link from 'next/link'
 
 export default function WhatsappFloatingButton() {
-    const whatsappNumber = '61998301406'
-    const whatsappMessage = 'Olá, gostaria de agendar uma consulta com a Dra.Tatiana Miranda.'
+    const whatsappNumber = '6195668686'
+    const whatsappMessage = 'Olá Arruas Tattoo, gostaria de tirar dúvidas sobre tatuagens.'
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
 
     return (
