@@ -15,7 +15,6 @@ export default function Hero() {
         })
     }, [])
 
-    // ATENÇÃO: Atualize esta lista com as especialidades do Arruas Tattoo
     const specialties = [
         "Tatuagens exclusivas e personalizadas",
         "Artistas especializados em Fine Line, Realismo e Old School",
@@ -36,17 +35,18 @@ export default function Hero() {
                 className="absolute inset-0 w-full h-full object-cover"
                 data-aos="zoom-out"
                 data-aos-delay="100"
-            // Opcional: descomente se precisar de um poster (imagem de fallback)
-            // poster="/caminho/para/imagem-poster.jpg"
             />
 
             {/* Overlay Gradiente */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-            {/* Você pode querer um overlay mais escuro para o vídeo, ex: from-black/90 via-black/60 */}
 
             {/* Conteúdo */}
             <div className="relative z-10 container mx-auto h-full flex items-end pb-8 md:items-center md:pb-0 px-4 md:px-6 lg:px-8">
-                <div className="w-full max-w-2xl text-white space-y-2 md:space-y-4" data-aos="fade-up" data-aos-delay="300">
+                <div
+                    className="w-full max-w-2xl text-white space-y-2 md:space-y-4"
+                    data-aos="fade-up"
+                    data-aos-delay="300"
+                >
 
                     {/* Logo + Lista */}
                     <div
@@ -54,22 +54,28 @@ export default function Hero() {
                         data-aos="fade-right"
                         data-aos-delay="500"
                     >
-                        {/* ATENÇÃO: Atualize o caminho para a logo do Arruas Tattoo */}
-                        <Image
-                            src="/arruaslogo.png"
-                            alt="Arruas Tattoo - Estúdio de Tatuagem"
-                            width={500}
-                            height={250}
-                            className="object-contain w-full max-w-[300px] md:max-w-[400px] -mb-10 ml-40 md:ml-0"
-                            priority
-                        />
+                        {/* Logo - Ajustado para telas grandes */}
+                        <div
+                            className="flex justify-center md:justify-start w-full mb-2 md:mb-0"
+                            data-aos="fade-right"
+                            data-aos-delay="500"
+                        >
+                            <Image
+                                src="/3.png"
+                                alt="Arruas Tattoo - Estúdio de Tatuagem"
+                                width={500}
+                                height={500}
+                                className="object-contain w-[180px] md:w-[320px] lg:w-[400px] transition-transform duration-700"
+                                priority
+                            />
+                        </div>
 
-                        <ul className="space-y-2 w-full mt-0">
+
+                        <ul className="space-y-2 w-full mt-0 text-center md:text-left">
                             {specialties.map((item, index) => (
-                                <li key={index} className="flex items-start gap-2">
+                                <li key={index} className="flex items-start md:items-center justify-center md:justify-start gap-2">
                                     <CheckCircle
                                         weight="fill"
-                                        // ATENÇÃO: Talvez queira mudar a cor do ícone
                                         className="text-green-400 w-5 h-5 flex-shrink-0 mt-0.5"
                                     />
                                     <span className="opacity-90 text-sm md:text-base">
@@ -81,14 +87,18 @@ export default function Hero() {
                     </div>
 
                     {/* Botão Desktop */}
-                    <div className="hidden md:block pt-2 " data-aos="fade-up" data-aos-delay="800">
+                    <div className="hidden md:block pt-2" data-aos="fade-up" data-aos-delay="800">
                         <WhatsAppButton />
                     </div>
                 </div>
             </div>
 
             {/* Botão Flutuante Mobile */}
-            <div className="md:hidden fixed bottom-6 right-6 z-20" data-aos="fade-up" data-aos-delay="700">
+            <div
+                className="md:hidden fixed bottom-6 right-6 z-20"
+                data-aos="fade-up"
+                data-aos-delay="700"
+            >
                 <WhatsAppButton isMobile />
             </div>
         </section>
@@ -96,8 +106,6 @@ export default function Hero() {
 }
 
 function WhatsAppButton({ isMobile = false }: { isMobile?: boolean }) {
-
-    // ATENÇÃO: Atualize o número de telefone e o texto padrão
     const whatsappNumber = "556195668686";
     const whatsappText = "Olá, vim pelo site e gostaria de fazer um orçamento para uma tatuagem.";
 
@@ -118,7 +126,6 @@ function WhatsAppButton({ isMobile = false }: { isMobile?: boolean }) {
             aria-label="Fazer orçamento via WhatsApp"
         >
             <WhatsappLogoIcon className={isMobile ? "w-7 h-7" : "w-4 h-4"} />
-            {/* ATENÇÃO: Atualize o texto do botão */}
             {!isMobile && "Fazer Orçamento"}
         </a>
     )
