@@ -13,7 +13,7 @@ export default function Header() {
         { label: 'Início', href: '/' },
         { label: 'Sobre Mim', href: '/sobre' },
         { label: 'Estúdio', href: '/tratamentos' },
-        { label: 'Desenhos', href: '/domiciliar' },
+        { label: 'Artes', href: '/domiciliar' },
         { label: 'Contato', href: '/contatos' },
     ]
 
