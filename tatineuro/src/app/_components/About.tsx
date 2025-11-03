@@ -106,7 +106,7 @@ export function About() {
                             </a>
 
                             <Link
-                                href="/galeria"
+                                href="/domiciliar"
                                 className="group border-2 border-gray-300 hover:border-gray-400 text-gray-800 flex items-center justify-center gap-3 px-6 py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 font-semibold text-lg"
                             >
                                 <Images className="w-6 h-6 text-gray-700" />
