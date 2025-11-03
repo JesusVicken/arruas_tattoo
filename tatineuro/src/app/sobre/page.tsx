@@ -165,7 +165,7 @@ export default function SobrePage() {
                                 </a>
                                 
                                 <Link
-                                    href="/galeria"
+                                    href="/domiciliar"
                                     className="group border-2 border-gray-300 hover:border-gray-400 text-gray-800 font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center justify-center gap-3 text-lg"
                                 >
                                     Ver Portfólio
@@ -182,7 +182,7 @@ export default function SobrePage() {
                 <div className="container px-4 mx-auto">
                     <div className="text-center mb-12 lg:mb-16">
                         <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                            Vamos Conversar?
+                            Vamos Rabiscar!?
                         </h2>
                         <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
                             Entre em contato e vamos criar sua tatuagem dos sonhos juntos

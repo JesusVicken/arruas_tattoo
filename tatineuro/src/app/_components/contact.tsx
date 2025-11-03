@@ -149,19 +149,35 @@ export default function Contact() {
                 </div>
             </div>
 
-            {/* MAPA */}
-            <div className="w-full h-[300px] md:h-[400px] lg:h-[450px]">
+            {/* Mapa Modernizado */}
+            <div
+                id="map"
+                className="relative w-full h-[500px] lg:h-[600px] bg-gray-900"
+                data-aos="fade-up"
+                data-aos-delay="600"
+            >
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10 pointer-events-none"></div>
                 <iframe
-                    title="Localização Estúdio Arruas Tattoo"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245842.0198082934!2d-48.05315964892468!3d-15.72154228495493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a3d18df9ae279%3A0x79188d5b54443465!2sBras%C3%ADlia%2C%20DF!5e0!3m2!1spt-BR!2sbr!4v1720546377670!5m2!1spt-BR!2sbr"
+                    title="Estúdio Arruas Tattoo - Águas Claras, Brasília"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245842.0198082934!2d-48.05315964892468!3d-15.72154228495493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a3d18df9ae279%3A0x79188d5b54443465!2sAvenida%20Boulevard%20Sul%2C%20%C3%81guas%20Claras%2C%20Bras%C3%ADlia%20DF%2C%2071926-250!5e0!3m2!1spt-BR!2sbr!4v1720546377670!5m2!1spt-BR!2sbr"
                     width="100%"
                     height="100%"
                     loading="lazy"
                     style={{ border: 0 }}
                     allowFullScreen
                     referrerPolicy="no-referrer-when-downgrade"
-                    className="w-full h-full"
-                ></iframe>
+                    className="absolute inset-0 w-full h-full"
+                />
+                {/* Overlay de informações do mapa */}
+                <div className="absolute bottom-6 left-6 z-20 bg-black/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+                    <div className="flex items-center gap-3">
+                        <MapPin className="w-5 h-5 text-green-400" weight="fill" />
+                        <div>
+                            <p className="text-white font-semibold text-sm">Arruas Tattoo Studio</p>
+                            <p className="text-gray-300 text-xs">Águas Claras, Brasília - DF</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     )

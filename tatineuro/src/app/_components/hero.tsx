@@ -17,7 +17,7 @@ export default function Hero() {
 
     const specialties = [
         "Tatuagens exclusivas e personalizadas",
-        "Artistas especializados em Fine Line, Realismo e Old School",
+        "Especializado em Fine Line, Realismo e Old School",
         "Ambiente seguro com 100% de biossegurança",
         "Estúdio privado em Brasília - Águas Claras"
     ]
