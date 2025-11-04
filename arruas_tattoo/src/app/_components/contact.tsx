@@ -12,7 +12,6 @@ import 'aos/dist/aos.css'
 import Image from 'next/image'
 
 export default function Contact() {
-    // 🔧 Atualize esses dados
     const whatsappNumber = '556195668686'
     const whatsappMessage = 'Olá, vim pelo site e gostaria de fazer um orçamento para uma tatuagem.'
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
@@ -35,20 +34,22 @@ export default function Contact() {
                 </div>
 
                 {/* Seções principais */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                    {/* LOGO */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 items-center">
+                    {/* LOGO aprimorada */}
                     <div
                         data-aos="fade-up"
                         className="flex justify-center md:justify-center lg:justify-start items-center"
                     >
-                        <Image
-                            src="/arruaslogo.png"
-                            alt="Arruas Tattoo Logo"
-                            width={400}
-                            height={200}
-                            priority
-                            className="w-56 sm:w-72 md:w-80 lg:w-96 object-contain drop-shadow-md"
-                        />
+                        <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px] xl:w-[500px] xl:h-[500px] transition-transform duration-500 hover:scale-105">
+                            <Image
+                                src="/3.png"
+                                alt="Arruas Tattoo Logo"
+                                fill
+                                sizes="(max-width: 768px) 80vw, (max-width: 1200px) 40vw, 500px"
+                                priority
+                                className="object-contain rounded-2xl shadow-lg bg-white p-4"
+                            />
+                        </div>
                     </div>
 
                     {/* CONTATOS */}
@@ -68,7 +69,7 @@ export default function Contact() {
                             <p className="flex items-start justify-center md:justify-start gap-2">
                                 <MapPin className="text-gray-700 w-5 h-5 flex-shrink-0" />
                                 <span>
-                                    Avenida Boulevard Sul, Sul (Aguas Claras), Brasília DF, 71926-250, Brasil <br />
+                                    Ed. Lê Quartier - Av. Pau Brasil, 10 - Sala 1708 - Águas Claras, Brasília - DF, 71926-000 <br />
                                     <span className="text-sm text-gray-600">
                                         Atendimento em estúdio privado com hora marcada.
                                     </span>
@@ -113,7 +114,7 @@ export default function Contact() {
                                 className="hover:scale-110 transition-transform"
                             >
                                 <img
-                                    src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
                                     alt="Instagram"
                                     className="w-8 h-8"
                                 />
@@ -126,7 +127,7 @@ export default function Contact() {
                                 className="hover:scale-110 transition-transform"
                             >
                                 <img
-                                    src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
                                     alt="Facebook"
                                     className="w-8 h-8"
                                 />
@@ -139,9 +140,9 @@ export default function Contact() {
                                 className="hover:scale-110 transition-transform"
                             >
                                 <img
-                                    src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
                                     alt="YouTube"
-                                    className="w-8 h-8"
+                                    className="w-10 h-6"
                                 />
                             </a>
                         </div>
@@ -149,32 +150,35 @@ export default function Contact() {
                 </div>
             </div>
 
-            {/* Mapa Modernizado */}
+            {/* MAPA MODERNO COM PIN PRECISO */}
             <div
                 id="map"
-                className="relative w-full h-[500px] lg:h-[600px] bg-gray-900"
+                className="relative w-full h-[450px] sm:h-[500px] lg:h-[600px] bg-gray-900"
                 data-aos="fade-up"
                 data-aos-delay="600"
             >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10 pointer-events-none"></div>
                 <iframe
-                    title="Estúdio Arruas Tattoo - Águas Claras, Brasília"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245842.0198082934!2d-48.05315964892468!3d-15.72154228495493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a3d18df9ae279%3A0x79188d5b54443465!2sAvenida%20Boulevard%20Sul%2C%20%C3%81guas%20Claras%2C%20Bras%C3%ADlia%20DF%2C%2071926-250!5e0!3m2!1spt-BR!2sbr!4v1720546377670!5m2!1spt-BR!2sbr"
+                    title="Arruas Tattoo Studio - Ed. Lê Quartier"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6141.145776170267!2d-48.0276112!3d-15.8421985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a3d18df9ae279%3A0x79188d5b54443465!2sEd.%20L%C3%AA%20Quartier%20-%20Av.%20Pau%20Brasil%2C%2010%20-%20Sala%201708%20-%20%C3%81guas%20Claras%2C%20Bras%C3%ADlia%20-%20DF%2C%2071926-000!5e0!3m2!1spt-BR!2sbr!4v1730738145021!5m2!1spt-BR!2sbr"
                     width="100%"
                     height="100%"
                     loading="lazy"
                     style={{ border: 0 }}
                     allowFullScreen
                     referrerPolicy="no-referrer-when-downgrade"
-                    className="absolute inset-0 w-full h-full"
+                    className="absolute inset-0 w-full h-full rounded-none"
                 />
-                {/* Overlay de informações do mapa */}
-                <div className="absolute bottom-6 left-6 z-20 bg-black/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
+
+                {/* CARD SOBRE O MAPA */}
+                <div className="absolute bottom-6 left-6 z-20 bg-black/80 backdrop-blur-sm rounded-2xl p-4 border border-white/20 shadow-lg">
                     <div className="flex items-center gap-3">
                         <MapPin className="w-5 h-5 text-green-400" weight="fill" />
                         <div>
                             <p className="text-white font-semibold text-sm">Arruas Tattoo Studio</p>
-                            <p className="text-gray-300 text-xs">Águas Claras, Brasília - DF</p>
+                            <p className="text-gray-300 text-xs">
+                                Ed. Lê Quartier - Sala 1708 <br /> Águas Claras, Brasília - DF
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -16,8 +16,8 @@ export default function Hero() {
     }, [])
 
     const specialties = [
-        "Tatuagens exclusivas e personalizadas",
-        "Especializado em Fine Line, Realismo e Old School",
+        "FAZENDO ARTE, CRIANDO CONEXÕES",
+        "Especializado em realismo e blackwork hachura",
         "Ambiente seguro com 100% de biossegurança",
         "Estúdio privado em Brasília - Águas Claras"
     ]
@@ -27,7 +27,7 @@ export default function Hero() {
 
             {/* Vídeo de Fundo */}
             <video
-                src="/arruasbg.mp4"
+                src="/bg3.mp4"
                 autoPlay
                 loop
                 muted
@@ -61,7 +61,7 @@ export default function Hero() {
                             data-aos-delay="500"
                         >
                             <Image
-                                src="/3.png"
+                                src="/4.png"
                                 alt="Arruas Tattoo - Estúdio de Tatuagem"
                                 width={500}
                                 height={500}

@@ -8,75 +8,71 @@ import Link from "next/link"
 export function About() {
     return (
         <section className="bg-white py-16 lg:py-24">
-            <div className="container px-4 mx-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-                    {/* Imagens - Container flexível para tamanho real */}
-                    <div className="relative" data-aos="fade-up" data-aos-delay="200">
-                        {/* Container flexível que se adapta ao tamanho da imagem */}
-                        <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl group">
+                    {/* --- IMAGEM --- */}
+                    <div className="relative flex justify-center lg:justify-start" data-aos="fade-up" data-aos-delay="200">
+                        <div className="relative w-full max-w-md sm:max-w-lg rounded-3xl overflow-hidden shadow-2xl group">
                             <Image
                                 src="/arruas-about.jpg"
-                                alt="Estúdio Arruas Tattoo - Ambiente profissional para tatuagens fine line"
+                                alt="Estúdio Arruas Tattoo - Ambiente profissional"
                                 width={600}
                                 height={800}
                                 quality={100}
-                                className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-700 ease-out"
+                                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                                 priority
                                 sizes="(max-width: 768px) 100vw, 50vw"
                             />
-                            {/* Overlay sutil no hover */}
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-all duration-300" />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
                         </div>
 
-                        {/* Logo com animação flutuante */}
-                        <div className="absolute lg:left-12 lg:-bottom-6 -bottom-4 left-1/2 transform -translate-x-1/2 lg:translate-x-0 w-20 h-20 lg:w-32 lg:h-32 rounded-2xl overflow-hidden shadow-xl animate-float">
+                        {/* --- LOGO FLOTANTE --- */}
+                        <div className="absolute bottom-[-24px] lg:bottom-[-32px] left-1/2 lg:left-12 transform -translate-x-1/2 lg:translate-x-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 rounded-2xl overflow-hidden shadow-xl animate-float bg-white">
                             <Image
                                 src="/3.png"
-                                alt="Arruas Tattoo Logo - Representação da marca"
+                                alt="Logo Arruas Tattoo"
                                 width={128}
                                 height={128}
                                 quality={100}
-                                className="object-contain bg-white p-2"
+                                className="object-contain p-2"
                                 priority
                                 sizes="(max-width: 1024px) 80px, 128px"
                             />
                         </div>
                     </div>
 
-                    {/* Conteúdo textual - Melhor hierarquia e espaçamento */}
+                    {/* --- CONTEÚDO --- */}
                     <div className="space-y-8" data-aos="fade-up" data-aos-delay="400">
-                        {/* Cabeçalho */}
-                        <div className="space-y-4">
+                        {/* Título e subtítulo */}
+                        <div className="space-y-4 text-center lg:text-left">
                             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
                                 Sobre o Artista e Tatuador Ricardo Arruas
                             </h2>
-
-                            <div className="flex items-center gap-3 text-gray-700">
+                            <div className="flex justify-center lg:justify-start items-center gap-3 text-gray-700">
                                 <span className="text-lg font-semibold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-                                    Artista Ilustrador & Tatuador Fine Line
+                                    Especialista em Realismo, Blackwork, Hachura & Fine Line
                                 </span>
-                                <span className="text-2xl animate-pulse">🌿</span>
                             </div>
                         </div>
 
-                        {/* Textos com melhor legibilidade */}
-                        <div className="space-y-6 text-gray-700 leading-relaxed">
-                            <p className="text-justify lg:text-left text-lg">
-                                Através da internet, compartilho minhas ilustrações produzidas à mão e, aos poucos, fui conquistando meu espaço como <strong className="font-semibold text-gray-900">artista ilustrador fine line</strong>. Meus desenhos são sempre ligados à <strong className="font-semibold text-gray-900">natureza e à vida ao ar livre</strong>.
+                        {/* Descrição */}
+                        <div className="space-y-6 text-gray-700 leading-relaxed text-base sm:text-lg">
+                            <p className="text-justify">
+                                A arte sempre esteve presente na minha vida através do desenho e da expressão visual. Com o tempo, transformei essa paixão em tatuagens únicas, com foco em <strong className="text-gray-900 font-semibold">realismo</strong>, <strong className="text-gray-900 font-semibold">blackwork</strong>, <strong className="text-gray-900 font-semibold">hachura</strong> e <strong className="text-gray-900 font-semibold">fine line</strong>.
                             </p>
-                            <p className="text-justify lg:text-left text-lg">
-                                Por aqui, <strong className="font-semibold text-gray-900">cada detalhe é feito por mim</strong>: desde a produção de conteúdo para redes sociais até o atendimento. Isso me proporciona um <strong className="font-semibold text-gray-900">contato próximo e direto</strong> com cada pessoa que confia no meu trabalho.
+                            <p className="text-justify">
+                                Cada projeto é uma experiência personalizada da criação à execução onde busco traduzir a essência de cada cliente em um traço exclusivo, mantendo sempre o <strong className="text-gray-900 font-semibold">rigor técnico e o cuidado artístico</strong> que cada pele merece.
                             </p>
                         </div>
 
-                        {/* Lista com ícones mais destacados */}
+                        {/* Lista de diferenciais */}
                         <ul className="space-y-4">
                             {[
-                                "Especialista em Fine Line e ilustrações autorais",
-                                "Designs exclusivos com tema de natureza e vida ao ar livre",
+                                "Especialista em Realismo, Blackwork, Hachura e Fine Line",
+                                "Designs autorais com foco em identidade e significado",
                                 "Atendimento direto e personalizado com o artista",
-                                "Rigoroso padrão de biossegurança (ANVISA)"
+                                "Rigoroso padrão de biossegurança (ANVISA)",
                             ].map((item, index) => (
                                 <li
                                     key={index}
@@ -85,15 +81,13 @@ export function About() {
                                     <div className="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-0.5 group-hover:bg-green-200 transition-colors">
                                         <Check className="text-green-600 w-4 h-4" />
                                     </div>
-                                    <span className="text-gray-700 text-lg leading-relaxed">
-                                        {item}
-                                    </span>
+                                    <span className="text-gray-700 text-base sm:text-lg leading-relaxed">{item}</span>
                                 </li>
                             ))}
                         </ul>
 
-                        {/* Botões com melhor hierarquia visual */}
-                        <div className="flex flex-col sm:flex-row gap-4 pt-6">
+                        {/* Botões */}
+                        <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center lg:justify-start">
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -115,18 +109,17 @@ export function About() {
                             </Link>
                         </div>
 
-                        {/* Informação adicional sutil */}
-                        <div className="pt-4">
-                            <p className="text-gray-500 text-sm text-center sm:text-left">
-                                ⚡ Resposta rápida • ✨ Design exclusivo • 🎨 Arte personalizada
+                        {/* Info adicional */}
+                        <div className="pt-4 text-center lg:text-left">
+                            <p className="text-gray-500 text-sm sm:text-base">
+                                ⚡ Resposta rápida • 🎨 Design autoral • 🖤 Arte com propósito
                             </p>
                         </div>
                     </div>
-
                 </div>
             </div>
 
-            {/* Estilos CSS para animação flutuante */}
+            {/* --- ANIMAÇÃO FLOAT --- */}
             <style jsx>{`
                 @keyframes float {
                     0%, 100% { transform: translateY(0px); }
