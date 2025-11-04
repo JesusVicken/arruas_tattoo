@@ -18,6 +18,9 @@ import {
     ShieldCheck,
     Star,
     Calendar,
+    Palette,
+    Sparkle,
+    Users,
 } from '@phosphor-icons/react'
 
 export default function SobrePage() {
@@ -33,140 +36,195 @@ export default function SobrePage() {
         })
     }, [])
 
-    const features = [
+    const specialties = [
+        {
+            icon: <Palette className="w-6 h-6" />,
+            title: "Realismo",
+            description: "Tatuagens hiper-realistas com profundidade e detalhes impressionantes"
+        },
+        {
+            icon: <Sparkle className="w-6 h-6" />,
+            title: "Blackwork Hachura",
+            description: "Técnica única com hachuras que criam textura e movimento"
+        },
         {
             icon: <ShieldCheck className="w-6 h-6" />,
-            title: "Biossegurança Total",
+            title: "Biossegurança",
             description: "Ambiente esterilizado seguindo normas ANVISA"
         },
         {
             icon: <Star className="w-6 h-6" />,
             title: "Design Exclusivo",
             description: "Arte personalizada para cada cliente"
+        }
+    ]
+
+    const portfolioItems = [
+        {
+            type: "video",
+            src: "/arruas5.mp4",
+            alt: "Processo de tatuagem realista",
+            title: "Realismo em Ação"
         },
         {
-            icon: <Clock className="w-6 h-6" />,
-            title: "Atendimento Flexível",
-            description: "Horários que se adaptam à sua rotina"
+            type: "image",
+            src: "/tatoo2.jpeg",
+            alt: "Tattoo blackwork hachura",
+            title: "Blackwork Hachura"
         },
         {
-            icon: <Calendar className="w-6 h-6" />,
-            title: "Agendamento Online",
-            description: "Marque sua sessão pelo WhatsApp"
+            type: "video",
+            src: "/arruas7.mp4",
+            alt: "Técnica de hachura",
+            title: "Técnica Hachura"
+        },
+        {
+            type: "image",
+            src: "/tatoo5.jpeg",
+            alt: "Tatuagem realista",
+            title: "Realismo Detalhado"
         }
     ]
 
     return (
         <main className="bg-white">
-            {/* Hero Section Modernizada */}
-            <section className="relative bg-gradient-to-br from-gray-50 to-white py-16 lg:py-24">
-                <div className="container px-4 mx-auto">
+            {/* Hero Section - Ricardo Arruas */}
+            <section className="relative bg-gradient-to-br from-gray-900 to-black py-16 lg:py-24 overflow-hidden">
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:40px_40px]" />
+                </div>
+
+                <div className="container px-4 mx-auto relative">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                        
+
                         {/* Imagem/Vídeo Principal */}
                         <div className="relative" data-aos="fade-right">
-                            <div className="relative w-full h-[400px] sm:h-[500px] lg:h-[550px] rounded-3xl overflow-hidden shadow-2xl group">
+                            <div className="relative w-full h-[400px] sm:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl group">
                                 <video
-                                    src="/arruas2.mp4"
+                                    src="/arruas10.mp4"
                                     autoPlay
                                     loop
                                     muted
                                     playsInline
                                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                                    poster="/arruas-about.jpg"
                                 />
                                 {/* Overlay gradiente */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+                                {/* Badge de Especialista */}
+                                <div className="absolute top-6 left-6 bg-gradient-to-r from-amber-500 to-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                                    🎨 Especialista em Realismo
+                                </div>
                             </div>
 
-                            {/* Logo flutuante */}
-                            <div className="hidden lg:block absolute -right-4 -bottom-4 w-32 h-32 rounded-2xl overflow-hidden shadow-xl bg-white p-3 animate-float">
-                                <Image
-                                    src="/arruaslogo.png"
-                                    alt="Logo Arruas Tattoo"
-                                    fill
-                                    quality={100}
-                                    className="object-contain"
-                                    priority
-                                />
+                            {/* Estatísticas */}
+                            <div className="grid grid-cols-3 gap-4 mt-6">
+                                <div className="text-center p-4 bg-white rounded-2xl shadow-lg">
+                                    <div className="text-2xl font-bold text-gray-900">8+</div>
+                                    <div className="text-sm text-gray-600">Anos de Experiência</div>
+                                </div>
+                                <div className="text-center p-4 bg-white rounded-2xl shadow-lg">
+                                    <div className="text-2xl font-bold text-gray-900">500+</div>
+                                    <div className="text-sm text-gray-600">Tatuagens Realizadas</div>
+                                </div>
+                                <div className="text-center p-4 bg-white rounded-2xl shadow-lg">
+                                    <div className="text-2xl font-bold text-gray-900">100%</div>
+                                    <div className="text-sm text-gray-600">Clientes Satisfeitos</div>
+                                </div>
                             </div>
                         </div>
 
                         {/* Conteúdo Textual */}
                         <div className="space-y-6 lg:space-y-8" data-aos="fade-left">
-                            {/* Logo Header */}
-                            <div className="flex justify-center lg:justify-start">
-                                <div className="w-full max-w-[320px] lg:max-w-[380px]">
-                                    <Image
-                                        src="/arruas-about.jpg"
-                                        alt="Arruas Tattoo"
-                                        width={380}
-                                        height={120}
-                                        className="w-full h-auto object-contain"
-                                        priority
-                                    />
+                            {/* Header */}
+                            <div className="space-y-4">
+                                <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
+                                    Ricardo Arruas
+                                    <span className="block text-amber-400 text-2xl lg:text-3xl mt-2">
+                                        Tatuador Profissional
+                                    </span>
+                                </h1>
+
+                                <div className="flex items-center gap-2 text-amber-300">
+                                    <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" />
+                                    <span className="font-semibold">Online • Disponível para orçamentos</span>
                                 </div>
                             </div>
 
-                            {/* Tagline Destaque */}
-                            <div className="text-center lg:text-left">
-                                <p className="text-lg lg:text-xl font-semibold text-green-600 bg-green-50 px-4 py-3 rounded-2xl inline-block">
-                                    🎨 Tatuagens exclusivas e personalizadas em Brasília
+                            {/* Especialidades Destaque */}
+                            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                                <h3 className="text-lg font-semibold text-white mb-3">Especialidades</h3>
+                                <div className="flex flex-wrap gap-2">
+                                    <span className="bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                        Realismo
+                                    </span>
+                                    <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-sm font-medium border border-amber-400">
+                                        Blackwork Hachura
+                                    </span>
+                                    <span className="bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                        Fine Line
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Descrição */}
+                            <div className="space-y-4 text-gray-300 leading-relaxed">
+                                <p className="text-lg">
+                                    Com mais de <strong className="text-white">8 anos de experiência</strong>,
+                                    sou especialista em <strong className="text-amber-400">Realismo e Blackwork Hachura</strong>,
+                                    técnicas que exigem precisão e maestria.
+                                </p>
+
+                                <p className="text-lg">
+                                    Minha abordagem combina <strong className="text-white">técnica apurada</strong> com
+                                    <strong className="text-amber-400"> sensibilidade artística</strong>, criando peças
+                                    únicas que contam histórias através da arte na pele.
+                                </p>
+
+                                <p className="text-lg">
+                                    Atendo em <strong className="text-white">estúdio privado em Águas Claras</strong>,
+                                    proporcionando um ambiente confortável e seguro para sua experiência de tatuagem.
                                 </p>
                             </div>
 
-                            {/* Descrições */}
-                            <div className="space-y-4 text-gray-700 leading-relaxed">
-                                <p className="text-justify lg:text-left text-base lg:text-lg">
-                                    Oferecemos <strong className="text-gray-900">tatuagens personalizadas</strong> com foco em 
-                                    <span className="font-semibold text-gray-900"> Fine Line, Realismo e Old School</span>, sempre 
-                                    priorizando <strong className="text-gray-900">higiene e biossegurança</strong>.
-                                </p>
-                                <p className="text-justify lg:text-left text-base lg:text-lg">
-                                    Nossa equipe de <strong className="text-gray-900">artistas especializados</strong> garante um 
-                                    atendimento exclusivo e de qualidade para cada cliente.
-                                </p>
-                                <p className="text-justify lg:text-left text-base lg:text-lg">
-                                    Atendemos em <strong className="text-gray-900">estúdio privado</strong>, proporcionando 
-                                    conforto e privacidade durante todo o processo de criação.
-                                </p>
-                            </div>
-
-                            {/* Features Grid */}
+                            {/* Especialidades Grid */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                                {features.map((feature, index) => (
-                                    <div 
+                                {specialties.map((specialty, index) => (
+                                    <div
                                         key={index}
-                                        className="flex items-start gap-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors group"
+                                        className="flex items-start gap-3 p-4 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 transition-all group"
                                         data-aos="fade-up"
                                         data-aos-delay={index * 100}
                                     >
-                                        <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600 group-hover:bg-green-200 transition-colors">
-                                            {feature.icon}
+                                        <div className="flex-shrink-0 w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center text-white group-hover:bg-amber-600 transition-colors">
+                                            {specialty.icon}
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold text-gray-900 text-sm">{feature.title}</h4>
-                                            <p className="text-xs text-gray-600 mt-1">{feature.description}</p>
+                                            <h4 className="font-semibold text-white text-base">{specialty.title}</h4>
+                                            <p className="text-sm text-gray-300 mt-1">{specialty.description}</p>
                                         </div>
                                     </div>
                                 ))}
                             </div>
 
-                            {/* CTA Button */}
+                            {/* CTA Buttons */}
                             <div className="flex flex-col sm:flex-row gap-4 pt-4" data-aos="fade-up" data-aos-delay="400">
                                 <a
                                     href={whatsappLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center justify-center gap-3 text-lg"
+                                    className="group bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center justify-center gap-3 text-lg shadow-lg"
                                 >
                                     <WhatsappLogo className="w-6 h-6" weight="fill" />
                                     Fazer Orçamento
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </a>
-                                
+
                                 <Link
                                     href="/domiciliar"
-                                    className="group border-2 border-gray-300 hover:border-gray-400 text-gray-800 font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center justify-center gap-3 text-lg"
+                                    className="group border-2 border-amber-400 hover:border-amber-300 text-amber-400 hover:text-amber-300 font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center justify-center gap-3 text-lg"
                                 >
                                     Ver Portfólio
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -177,43 +235,186 @@ export default function SobrePage() {
                 </div>
             </section>
 
-            {/* Contatos e Redes Sociais - Modernizada */}
+            {/* Seção Processo e Portfolio */}
+            <section className="bg-gradient-to-b from-gray-50 to-white py-16 lg:py-20">
+                <div className="container px-4 mx-auto">
+                    <div className="text-center mb-12 lg:mb-16" data-aos="fade-up">
+                        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                            Meu Processo Criativo
+                        </h2>
+                        <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
+                            Da ideia inicial à obra finalizada, cada etapa é cuidadosamente planejada
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        {/* Video do Processo */}
+                        <div className="relative" data-aos="fade-right">
+                            <div className="relative w-full h-[400px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl group">
+                                <video
+                                    src="/arruas15.mp4"
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                    poster="/tatoo1.jpeg"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+
+                                {/* Play Button Overlay */}
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="w-20 h-20 bg-amber-500 rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+                                        <div className="w-0 h-0 border-l-[16px] border-l-white border-y-[8px] border-y-transparent ml-1" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Etapas do Processo */}
+                        <div className="space-y-6" data-aos="fade-left">
+                            {[
+                                {
+                                    step: "01",
+                                    title: "Consulta e Ideia",
+                                    description: "Conversamos sobre sua ideia, expectativas e criamos o conceito inicial"
+                                },
+                                {
+                                    step: "02",
+                                    title: "Estudo e Sketch",
+                                    description: "Desenvolvo o desenho personalizado, considerando anatomia e composição"
+                                },
+                                {
+                                    step: "03",
+                                    title: "Aprovação e Preparação",
+                                    description: "Você aprova o design e preparamos tudo para a sessão"
+                                },
+                                {
+                                    step: "04",
+                                    title: "Execução com Excelência",
+                                    description: "Realização da tatuagem com técnica apurada e máximo cuidado"
+                                }
+                            ].map((etapa, index) => (
+                                <div
+                                    key={index}
+                                    className="flex gap-4 p-6 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all group"
+                                >
+                                    <div className="flex-shrink-0 w-12 h-12 bg-amber-500 text-white rounded-xl flex items-center justify-center font-bold text-lg">
+                                        {etapa.step}
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-gray-900 text-lg mb-2">{etapa.title}</h3>
+                                        <p className="text-gray-600">{etapa.description}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Galeria de Trabalhos */}
+            <section className="bg-gray-900 py-16 lg:py-20">
+                <div className="container px-4 mx-auto">
+                    <div className="text-center mb-12 lg:mb-16" data-aos="fade-up">
+                        <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+                            Trabalhos em Destaque
+                        </h2>
+                        <p className="text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto">
+                            Confira alguns exemplos do realismo e blackwork hachura
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {portfolioItems.map((item, index) => (
+                            <div
+                                key={index}
+                                className="relative group rounded-2xl overflow-hidden shadow-2xl aspect-square"
+                                data-aos="fade-up"
+                                data-aos-delay={index * 100}
+                            >
+                                {item.type === 'video' ? (
+                                    <video
+                                        src={item.src}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                    />
+                                ) : (
+                                    <Image
+                                        src={item.src}
+                                        alt={item.alt}
+                                        fill
+                                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                    />
+                                )}
+
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                                <div className="absolute bottom-4 left-4 right-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                    <h3 className="font-semibold text-lg">{item.title}</h3>
+                                    <p className="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
+                                        {item.alt}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="text-center mt-12" data-aos="fade-up">
+                        <Link
+                            href="/domiciliar"
+                            className="inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105"
+                        >
+                            Ver Portfólio Completo
+                            <ArrowRight className="w-5 h-5" />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* Contatos e Redes Sociais */}
             <section className="bg-gradient-to-b from-white to-gray-50 py-16 lg:py-20" data-aos="fade-up">
                 <div className="container px-4 mx-auto">
                     <div className="text-center mb-12 lg:mb-16">
                         <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                            Vamos Rabiscar!?
+                            Vamos Criar Juntos?
                         </h2>
                         <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
-                            Entre em contato e vamos criar sua tatuagem dos sonhos juntos
+                            Entre em contato e vamos transformar sua ideia em uma obra de arte
                         </p>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto">
-                        
-                        {/* Logo e Apresentação */}
+
+                        {/* Apresentação Pessoal */}
                         <div className="flex flex-col items-center lg:items-start space-y-6" data-aos="fade-right">
-                            <div className="w-48 lg:w-56">
+                            <div className="w-48 h-48 relative rounded-full overflow-hidden shadow-2xl border-4 border-amber-500">
                                 <Image
-                                    src="/3.png"
-                                    alt="Arruas Tattoo"
-                                    width={224}
-                                    height={112}
-                                    className="w-full h-auto object-contain"
-                                    priority
+                                    src="/arruas-about.jpg"
+                                    alt="Ricardo Arruas - Tatuador"
+                                    fill
+                                    className="object-cover"
                                 />
                             </div>
-                            <p className="text-gray-600 text-center lg:text-left text-lg">
-                                Criando arte na pele com excelência e segurança em Brasília
-                            </p>
+                            <div className="text-center lg:text-left">
+                                <h3 className="text-2xl font-bold text-gray-900 mb-2">Ricardo Arruas</h3>
+                                <p className="text-amber-600 font-semibold mb-3">Tatuador Profissional</p>
+                                <p className="text-gray-600">
+                                    Especialista em Realismo e Blackwork Hachura com mais de 8 anos
+                                    transformando ideias em arte na pele.
+                                </p>
+                            </div>
                         </div>
 
                         {/* Informações de Contato */}
                         <div className="space-y-6" data-aos="fade-up">
                             <h3 className="text-2xl font-bold text-gray-900 text-center lg:text-left">
-                                Informações de Contato
+                                Entre em Contato
                             </h3>
-                            
+
                             <div className="space-y-4">
                                 <div className="flex items-center gap-4 p-4 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow group">
                                     <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 group-hover:bg-green-200 transition-colors">
@@ -221,7 +422,7 @@ export default function SobrePage() {
                                     </div>
                                     <div>
                                         <p className="text-sm text-gray-500">Email</p>
-                                        <p className="font-semibold text-gray-900">contato@arruastattoo.com</p>
+                                        <p className="font-semibold text-gray-900">contato@ricardoarruas.com</p>
                                     </div>
                                 </div>
 
@@ -240,10 +441,10 @@ export default function SobrePage() {
                                         <MapPin className="w-6 h-6" />
                                     </div>
                                     <div>
-                                        <p className="text-sm text-gray-500">Localização</p>
+                                        <p className="text-sm text-gray-500">Estúdio</p>
                                         <p className="font-semibold text-gray-900">
-                                            Avenida Boulevard Sul, Águas Claras<br />
-                                            Brasília - DF, 71926-250
+                                            Águas Claras, Brasília - DF<br />
+                                            Ambiente privado e seguro
                                         </p>
                                     </div>
                                 </div>
@@ -253,30 +454,30 @@ export default function SobrePage() {
                         {/* Redes Sociais */}
                         <div className="space-y-6" data-aos="fade-left">
                             <h3 className="text-2xl font-bold text-gray-900 text-center lg:text-left">
-                                Nossas Redes
+                                Acompanhe Meu Trabalho
                             </h3>
-                            
+
                             <p className="text-gray-600 text-center lg:text-left">
-                                Acompanhe nosso trabalho e inspire-se
+                                Veja mais projetos e processos criativos
                             </p>
-                            
+
                             <div className="flex justify-center lg:justify-start gap-6">
                                 {[
-                                    { 
-                                        icon: <InstagramLogo className="w-6 h-6" />, 
-                                        href: "https://www.instagram.com/arruas_tattoo",
+                                    {
+                                        icon: <InstagramLogo className="w-6 h-6" />,
+                                        href: "https://www.instagram.com/ricardo_arruas",
                                         color: "bg-gradient-to-br from-purple-500 to-pink-500",
                                         label: "Instagram"
                                     },
-                                    { 
-                                        icon: <FacebookLogo className="w-6 h-6" />, 
-                                        href: "https://www.facebook.com/arruastattoo",
+                                    {
+                                        icon: <FacebookLogo className="w-6 h-6" />,
+                                        href: "https://www.facebook.com/ricardoarruas",
                                         color: "bg-blue-600",
                                         label: "Facebook"
                                     },
-                                    { 
-                                        icon: <YoutubeLogo className="w-6 h-6" />, 
-                                        href: "https://www.youtube.com/@arruastattoo",
+                                    {
+                                        icon: <YoutubeLogo className="w-6 h-6" />,
+                                        href: "https://www.youtube.com/@ricardoarruas",
                                         color: "bg-red-600",
                                         label: "YouTube"
                                     }
@@ -300,7 +501,7 @@ export default function SobrePage() {
                                     href={whatsappLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-3 text-sm lg:text-base"
+                                    className="group bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-3 text-sm lg:text-base w-full"
                                 >
                                     <WhatsappLogo className="w-5 h-5" weight="fill" />
                                     Conversar no WhatsApp
@@ -311,22 +512,22 @@ export default function SobrePage() {
                 </div>
             </section>
 
-            {/* Mapa Modernizado */}
+            {/* Mapa */}
             <div className="relative bg-white" data-aos="fade-up">
                 <div className="container px-4 mx-auto py-8">
                     <div className="text-center mb-8">
                         <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">
-                            Nosso Estúdio
+                            Meu Estúdio
                         </h3>
                         <p className="text-gray-600 text-lg">
-                            Venha nos visitar em Águas Claras, Brasília
+                            Atendimento personalizado em Águas Claras, Brasília
                         </p>
                     </div>
                 </div>
-                
+
                 <div className="w-full h-[400px] lg:h-[500px] relative rounded-2xl overflow-hidden shadow-2xl mx-auto max-w-6xl">
                     <iframe
-                        title="Localização Arruas Tattoo - Águas Claras, Brasília"
+                        title="Estúdio Ricardo Arruas - Águas Claras, Brasília"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245842.0198082934!2d-48.05315964892468!3d-15.72154228495493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a3d18df9ae279%3A0x79188d5b54443465!2sAvenida%20Boulevard%20Sul%2C%20Águas%20Claras%2C%20Brasília%20DF%2C%2071926-250!5e0!3m2!1spt-BR!2sbr!4v1720546377670!5m2!1spt-BR!2sbr"
                         width="100%"
                         height="100%"
@@ -336,12 +537,10 @@ export default function SobrePage() {
                         referrerPolicy="no-referrer-when-downgrade"
                         className="absolute inset-0 w-full h-full"
                     />
-                    {/* Overlay para melhor contraste */}
-                    <div className="absolute inset-0 pointer-events-none" />
                 </div>
             </div>
 
-            {/* Estilos CSS para animação flutuante */}
+            {/* Estilos CSS para animações */}
             <style jsx>{`
                 @keyframes float {
                     0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -350,6 +549,22 @@ export default function SobrePage() {
                 }
                 .animate-float {
                     animation: float 6s ease-in-out infinite;
+                }
+                
+                /* Melhorar responsividade para mobile */
+                @media (max-width: 768px) {
+                    .container {
+                        padding-left: 1rem;
+                        padding-right: 1rem;
+                    }
+                    
+                    .text-4xl {
+                        font-size: 2rem;
+                    }
+                    
+                    .text-5xl {
+                        font-size: 2.5rem;
+                    }
                 }
             `}</style>
         </main>

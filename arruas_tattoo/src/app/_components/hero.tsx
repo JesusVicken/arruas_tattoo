@@ -16,7 +16,7 @@ export default function Hero() {
     }, [])
 
     const specialties = [
-        "FAZENDO ARTE, CRIANDO CONEXÕES",
+        "Fazendo arte e criando conexões",
         "Especializado em realismo e blackwork hachura",
         "Ambiente seguro com 100% de biossegurança",
         "Estúdio privado em Brasília - Águas Claras"
