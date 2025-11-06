@@ -25,7 +25,7 @@ export default function AboutStudio() {
     const [activeVideo, setActiveVideo] = useState(0)
 
     const studioVideos = [
-        "/studiobg.mp4",
+        "/bgstudio.mp4",
         "/studio4.mp4",
         "/studio5.mp4"
     ]
