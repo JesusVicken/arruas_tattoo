@@ -1,143 +1,411 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import Image from 'next/image'
+import { Play, Pause, VolumeX, VolumeHigh, InstagramLogo, WhatsappLogo, X } from '@phosphor-icons/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const media = [
-    { src: '/tatoo1.jpeg', type: 'image', alt: 'Foto 1' },
-    { src: '/arruas1.mp4', type: 'video', alt: 'Vídeo 1' },
-    { src: '/tatoo2.jpeg', type: 'image', alt: 'Foto 2' },
-    { src: '/tatoo4.jpeg', type: 'image', alt: 'Foto 3' },
-    { src: '/arruas2.mp4', type: 'video', alt: 'Vídeo 2' },
-    { src: '/tatoo5.jpeg', type: 'image', alt: 'Foto 4' },
-    { src: '/bg2.mp4', type: 'video', alt: 'Vídeo 3' },
-    { src: '/arruas4.mp4', type: 'video', alt: 'Video 5' },
-    { src: '/arruas3.mp4', type: 'video', alt: 'Vídeo 4' },
+const portfolioMedia = [
+    // Fotos
+    { src: '/arruas-about.jpg', type: 'image', alt: 'Ricardo Arruas - Tatuador Profissional', category: 'Artista' },
+    { src: '/tatoo1.jpeg', type: 'image', alt: 'Tatuagem Realista - Detalhe impressionante', category: 'Realismo' },
+    { src: '/tatoo2.jpeg', type: 'image', alt: 'Blackwork Hachura - Textura e movimento', category: 'Blackwork' },
+    { src: '/tatoo3.jpeg', type: 'image', alt: 'Tatuagem Fine Line - Traços precisos', category: 'Fine Line' },
+    { src: '/tatoo4.jpeg', type: 'image', alt: 'Realismo com sombras perfeitas', category: 'Realismo' },
+    { src: '/tatoo5.jpeg', type: 'image', alt: 'Tatuagem realista com profundidade 3D', category: 'Realismo' },
+
+    // Vídeos
+    { src: '/arruas1.mp4', type: 'video', alt: 'Processo de tatuagem realista', category: 'Processo' },
+    { src: '/arruas2.mp4', type: 'video', alt: 'Técnica de hachura aplicada', category: 'Processo' },
+    { src: '/arruas3.mp4', type: 'video', alt: 'Detalhe da técnica de hachura', category: 'Processo' },
+    { src: '/arruas4.mp4', type: 'video', alt: 'Finalização de tatuagem', category: 'Processo' },
+    { src: '/arruas5.mp4', type: 'video', alt: 'Realismo em tempo real', category: 'Processo' },
+    { src: '/arruas6.mp4', type: 'video', alt: 'Ambiente do estúdio', category: 'Estúdio' },
+    { src: '/arruas7.mp4', type: 'video', alt: 'Técnica avançada de hachura', category: 'Processo' },
+    { src: '/arruas8.mp4', type: 'video', alt: 'Processo criativo', category: 'Processo' },
+    { src: '/arruas9.mp4', type: 'video', alt: 'Tatuagem realista detalhe', category: 'Processo' },
+    { src: '/arruas10.mp4', type: 'video', alt: 'Workflow profissional', category: 'Processo' },
+    { src: '/arruas11.mp4', type: 'video', alt: 'Detalhes de acabamento', category: 'Processo' },
+    { src: '/arruas12.mp4', type: 'video', alt: 'Técnica de sombreamento', category: 'Processo' },
+    { src: '/arruas13.mp4', type: 'video', alt: 'Processo de colorização', category: 'Processo' },
+    { src: '/arruas14.mp4', type: 'video', alt: 'Demonstração de habilidade', category: 'Processo' },
+    { src: '/arruas15.mp4', type: 'video', alt: 'Trabalho finalizado', category: 'Processo' },
 ]
 
-export default function ConsultaDomiciliarPage() {
-    const sliderRef = useRef<HTMLDivElement>(null)
-    const wrapperRef = useRef<HTMLDivElement>(null)
+export default function PortfolioModerno() {
+    const containerRef = useRef<HTMLDivElement>(null)
+    const [activeFilter, setActiveFilter] = useState('Todos')
+    const [selectedMedia, setSelectedMedia] = useState<any>(null)
+    const [isMuted, setIsMuted] = useState(true)
+    const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
+    const [visibleVideos, setVisibleVideos] = useState<Set<string>>(new Set())
+
+    const categories = ['Todos', 'Realismo', 'Blackwork', 'Fine Line', 'Processo', 'Estúdio', 'Artista']
+
+    const filteredMedia = activeFilter === 'Todos'
+        ? portfolioMedia
+        : portfolioMedia.filter(item => item.category === activeFilter)
+
+    // Observer para vídeos visíveis
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    const videoId = entry.target.getAttribute('data-video-id')
+                    if (!videoId) return
+
+                    if (entry.isIntersecting) {
+                        setVisibleVideos(prev => new Set(prev).add(videoId))
+                    } else {
+                        setVisibleVideos(prev => {
+                            const newSet = new Set(prev)
+                            newSet.delete(videoId)
+                            return newSet
+                        })
+                    }
+                })
+            },
+            { threshold: 0.5 }
+        )
+
+        // Observar todos os vídeos
+        Object.values(videoRefs.current).forEach(video => {
+            if (video) observer.observe(video)
+        })
+
+        return () => observer.disconnect()
+    }, [filteredMedia])
+
+    // Controlar play/pause dos vídeos baseado na visibilidade
+    useEffect(() => {
+        Object.entries(videoRefs.current).forEach(([id, video]) => {
+            if (video) {
+                if (visibleVideos.has(id)) {
+                    video.play().catch(() => { })
+                } else {
+                    video.pause()
+                }
+            }
+        })
+    }, [visibleVideos])
 
     useEffect(() => {
-        if (!sliderRef.current || !wrapperRef.current) return
+        if (!containerRef.current) return
 
-        const slider = sliderRef.current
-        const slides = Array.from(slider.children) as HTMLDivElement[]
+        // Animação de entrada dos cards
+        const cards = containerRef.current.querySelectorAll('.media-card')
 
-        // Espera todas as imagens e vídeos carregarem
-        const waitForMedia = new Promise<void>((resolve) => {
-            let loadedCount = 0
-            const total = slides.length
-
-            slides.forEach((slide) => {
-                const mediaEl = slide.querySelector('img, video') as
-                    | HTMLImageElement
-                    | HTMLVideoElement
-                    | null
-                if (!mediaEl) return
-
-                if (mediaEl.tagName === 'IMG') {
-                    const img = mediaEl as HTMLImageElement
-                    if (!img.complete) {
-                        img.onload = img.onerror = () => {
-                            loadedCount++
-                            if (loadedCount === total) resolve()
-                        }
-                    } else {
-                        loadedCount++
-                        if (loadedCount === total) resolve()
-                    }
-                } else if (mediaEl.tagName === 'VIDEO') {
-                    const video = mediaEl as HTMLVideoElement
-                    video.onloadedmetadata = () => {
-                        loadedCount++
-                        if (loadedCount === total) resolve()
-                    }
-                }
-            })
-        })
-
-        waitForMedia.then(() => {
-            const totalWidth =
-                slides.reduce((acc, slide) => acc + slide.offsetWidth + 10, 0) +
-                window.innerWidth * 0.6
-
-            const panData = slides.map((slide) => {
-                const img = slide.querySelector('img') as HTMLImageElement | null
-                if (!img) return { overflowX: 0 }
-
-                const scaledImgWidth =
-                    img.naturalWidth * (slide.clientHeight / img.naturalHeight)
-                const overflowX = scaledImgWidth - slide.clientWidth
-                return { img, overflowX: overflowX > 0 ? overflowX : 0 }
-            })
-
-            // Animação principal com GSAP
-            gsap.to(slider, {
-                x: -(totalWidth - window.innerWidth),
-                ease: 'none',
+        gsap.fromTo(cards,
+            {
+                opacity: 0,
+                y: 60,
+                scale: 0.9
+            },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'back.out(1.7)',
                 scrollTrigger: {
-                    trigger: wrapperRef.current,
-                    pin: true,
-                    scrub: true,
-                    end:
-                        '+=' +
-                        ((totalWidth - window.innerWidth) * 3 + window.innerWidth * 0.3),
-                    onUpdate: (self) => {
-                        panData.forEach((data) => {
-                            if (data.img && data.overflowX > 0) {
-                                data.img.style.transform = `translateX(${-data.overflowX * self.progress
-                                    }px)`
-                            }
-                        })
-                    },
-                },
-            })
+                    trigger: containerRef.current,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                }
+            }
+        )
 
-            window.addEventListener('resize', () => {
-                ScrollTrigger.refresh()
-            })
-        })
-    }, [])
+        // Animação do header
+        gsap.fromTo('.portfolio-header',
+            {
+                opacity: 0,
+                y: -50
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out'
+            }
+        )
+
+    }, [activeFilter])
+
+    const openModal = (media: any) => {
+        setSelectedMedia(media)
+        document.body.style.overflow = 'hidden'
+    }
+
+    const closeModal = () => {
+        setSelectedMedia(null)
+        document.body.style.overflow = 'unset'
+    }
+
+    const toggleMute = () => {
+        setIsMuted(!isMuted)
+    }
 
     return (
-        <div
-            ref={wrapperRef}
-            className="wrapper h-screen overflow-hidden bg-black flex justify-start items-center relative"
-        >
-            <div
-                ref={sliderRef}
-                className="slider flex items-center will-change-transform px-[30vw]"
-            >
-                {media.map((item, i) => (
-                    <div
-                        key={i}
-                        className="slide relative flex-shrink-0 mx-[5px] overflow-hidden rounded-xl w-[300px] h-[45vh] md:w-[250px] md:h-[40vh] lg:w-[300px] lg:h-[45vh]"
-                    >
-                        {item.type === 'image' ? (
-                            <img
-                                src={item.src}
-                                alt={item.alt}
-                                className="block w-auto min-w-[130%] h-full object-cover select-none pointer-events-none will-change-transform"
-                                draggable={false}
-                            />
-                        ) : (
-                            <video
-                                src={item.src}
-                                className="block w-auto min-w-[130%] h-full object-cover rounded-xl"
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                            />
-                        )}
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
+            {/* Header */}
+            <header className="portfolio-header fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
+                <div className="container mx-auto px-4 py-4">
+                    <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
+                        {/* Logo e Título */}
+                        <div className="flex items-center gap-4">
+                            <div className="relative w-12 h-12">
+                                <Image
+                                    src="/4.png"
+                                    alt="Arruas Tattoo"
+                                    fill
+                                    className="object-contain"
+                                />
+                            </div>
+                            <div>
+                                <h1 className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                                    Portfólio Arruas
+                                </h1>
+                                <p className="text-gray-400 text-sm">Arte em Movimento</p>
+                            </div>
+                        </div>
+
+                        {/* Filtros */}
+                        <div className="flex flex-wrap gap-2 justify-center max-w-2xl">
+                            {categories.map(category => (
+                                <button
+                                    key={category}
+                                    onClick={() => setActiveFilter(category)}
+                                    className={`px-3 py-2 rounded-full text-xs font-medium transition-all duration-300 border ${activeFilter === category
+                                            ? 'bg-white text-black border-white'
+                                            : 'bg-transparent text-gray-300 border-gray-600 hover:border-gray-400 hover:text-white'
+                                        }`}
+                                >
+                                    {category}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Redes Sociais */}
+                        <div className="flex items-center gap-3">
+                            <a
+                                href="https://www.instagram.com/arruas_tattoo"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:scale-110 transition-transform"
+                            >
+                                <InstagramLogo size={20} />
+                            </a>
+                            <a
+                                href="https://wa.me/5561993263535"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2 px-3 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition-colors text-sm"
+                            >
+                                <WhatsappLogo size={16} />
+                                Agendar
+                            </a>
+                        </div>
                     </div>
-                ))}
+                </div>
+            </header>
+
+            {/* Conteúdo Principal */}
+            <div ref={containerRef} className="container mx-auto px-4 pt-32 pb-20">
+                {/* Estatísticas */}
+                <div className="text-center mb-12">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                        {[
+                            { number: '8+', label: 'Anos Exp' },
+                            { number: '500+', label: 'Tatuagens' },
+                            { number: '100%', label: 'Satisfação' },
+                            { number: filteredMedia.length, label: 'No Portfólio' }
+                        ].map((stat, index) => (
+                            <div key={index} className="bg-gray-800/50 rounded-xl p-4 backdrop-blur-sm border border-gray-700">
+                                <div className="text-2xl font-bold text-white">{stat.number}</div>
+                                <div className="text-gray-400 text-sm">{stat.label}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Grid de Mídia */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {filteredMedia.map((media, index) => (
+                        <div
+                            key={`${media.src}-${index}`}
+                            className="media-card group relative bg-gray-800 rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 cursor-pointer"
+                            onClick={() => openModal(media)}
+                        >
+                            {/* Overlay de informações */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex flex-col justify-end p-4">
+                                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                    <span className="inline-block px-2 py-1 bg-white text-black text-xs font-bold rounded-full mb-2">
+                                        {media.category}
+                                    </span>
+                                    <p className="text-white text-sm line-clamp-2">{media.alt}</p>
+                                </div>
+                            </div>
+
+                            {/* Indicador de tipo */}
+                            <div className="absolute top-3 right-3 z-20">
+                                <div className="px-2 py-1 bg-black/70 backdrop-blur-sm rounded-full">
+                                    <span className="text-xs font-medium">
+                                        {media.type === 'video' ? '🎥 Vídeo' : '🖼 Foto'}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Play button para vídeos */}
+                            {media.type === 'video' && (
+                                <div className="absolute inset-0 flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                        <Play size={24} weight="fill" className="text-white ml-1" />
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Conteúdo de mídia */}
+                            {media.type === 'image' ? (
+                                <div className="relative w-full aspect-square">
+                                    <Image
+                                        src={media.src}
+                                        alt={media.alt}
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                    />
+                                </div>
+                            ) : (
+                                <video
+                                    ref={el => {
+                                        if (el) videoRefs.current[media.src] = el
+                                    }}
+                                    data-video-id={media.src}
+                                    src={media.src}
+                                    className="w-full aspect-square object-cover"
+                                    muted={isMuted}
+                                    loop
+                                    playsInline
+                                />
+                            )}
+                        </div>
+                    ))}
+                </div>
+
+                {/* Mensagem quando não há resultados */}
+                {filteredMedia.length === 0 && (
+                    <div className="text-center py-20">
+                        <div className="text-gray-400 text-lg">Nenhum trabalho encontrado nesta categoria.</div>
+                    </div>
+                )}
             </div>
+
+            {/* Modal */}
+            {selectedMedia && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
+                    <div className="relative max-w-4xl max-h-[90vh] w-full">
+                        {/* Botão fechar */}
+                        <button
+                            onClick={closeModal}
+                            className="absolute -top-12 right-0 z-50 p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+                        >
+                            <X size={24} />
+                        </button>
+
+                        {/* Controles de vídeo */}
+                        {selectedMedia.type === 'video' && (
+                            <div className="absolute top-4 left-4 z-50 flex gap-2">
+                                <button
+                                    onClick={toggleMute}
+                                    className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+                                >
+                                    {isMuted ? <VolumeX size={20} /> : <VolumeHigh size={20} />}
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Conteúdo do modal */}
+                        <div className="bg-gray-800 rounded-2xl overflow-hidden">
+                            {selectedMedia.type === 'image' ? (
+                                <div className="relative w-full h-[70vh]">
+                                    <Image
+                                        src={selectedMedia.src}
+                                        alt={selectedMedia.alt}
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
+                            ) : (
+                                <video
+                                    src={selectedMedia.src}
+                                    className="w-full h-[70vh] object-contain"
+                                    autoPlay
+                                    muted={isMuted}
+                                    controls
+                                    loop
+                                />
+                            )}
+
+                            {/* Informações no modal */}
+                            <div className="p-6 border-t border-gray-700">
+                                <div className="flex flex-wrap items-center gap-3 mb-3">
+                                    <span className="px-3 py-1 bg-white text-black text-sm font-bold rounded-full">
+                                        {selectedMedia.category}
+                                    </span>
+                                    <span className="text-gray-400 text-sm">
+                                        {selectedMedia.type === 'video' ? 'Vídeo' : 'Foto'}
+                                    </span>
+                                </div>
+                                <p className="text-white text-lg">{selectedMedia.alt}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Footer */}
+            <footer className="bg-black border-t border-gray-800 py-12">
+                <div className="container mx-auto px-4 text-center">
+                    <div className="flex flex-col items-center gap-6">
+                        <div className="relative w-20 h-20">
+                            <Image
+                                src="/4.png"
+                                alt="Arruas Tattoo"
+                                fill
+                                className="object-contain"
+                            />
+                        </div>
+                        <div>
+                            <h3 className="text-2xl font-bold mb-2">Ricardo Arruas</h3>
+                            <p className="text-gray-400 mb-4">Tatuador Profissional • Especialista em Realismo e Blackwork</p>
+                            <div className="flex justify-center gap-4">
+                                <a
+                                    href="https://www.instagram.com/arruas_tattoo"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:scale-105 transition-transform"
+                                >
+                                    <InstagramLogo size={20} />
+                                    Seguir no Instagram
+                                </a>
+                                <a
+                                    href="https://wa.me/5561993263535"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
+                                >
+                                    <WhatsappLogo size={20} />
+                                    Agendar Consulta
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     )
 }
