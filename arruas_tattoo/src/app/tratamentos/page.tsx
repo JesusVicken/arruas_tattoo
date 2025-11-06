@@ -205,7 +205,7 @@ export default function AboutStudio() {
                             <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg border border-gray-700 hover:border-gray-600 transition-all">
                                 <Phone size={24} weight="fill" className="text-gray-300 flex-shrink-0" />
                                 <div className="text-left">
-                                    <p className="font-semibold text-white">(61) 99326-3535</p>
+                                    <p className="font-semibold text-white">(61) 99566-8686</p>
                                     <p className="text-gray-400 text-sm">Atendimento por telefone e WhatsApp</p>
                                 </div>
                             </div>
