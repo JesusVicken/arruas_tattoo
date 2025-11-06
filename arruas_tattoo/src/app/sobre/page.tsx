@@ -68,20 +68,20 @@ export default function SobrePage() {
         },
         {
             type: "image",
-            src: "/tatoo4.jpeg",
-            alt: "Tattoo blackwork hachura",
-            title: "Blackwork Hachura"
+            src: "/tatoo2.jpeg",
+            alt: "Tattoo Realismo colorido",
+            title: "Trabalho feito com cores vibrantes e preto e cinza"
         },
         {
             type: "video",
-            src: "/arruas7.mp4",
+            src: "/arruas8.mp4",
             alt: "Técnica de hachura",
             title: "Técnica Hachura"
         },
         {
             type: "image",
             src: "/tatoo5.jpeg",
-            alt: "Tatuagem realista",
+            alt: "Tatuagem realista com cores",
             title: "Realismo Detalhado"
         }
     ]
@@ -148,7 +148,7 @@ export default function SobrePage() {
                                 </h1>
 
                                 <div className="flex items-center gap-2 text-gray-400">
-                                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" />
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                                     <span className="font-semibold">Online • Disponível para orçamentos</span>
                                 </div>
                             </div>
