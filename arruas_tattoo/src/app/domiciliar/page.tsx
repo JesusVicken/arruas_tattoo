@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import Image from 'next/image'
-import { Play, Pause, VolumeX, VolumeHigh, InstagramLogo, WhatsappLogo, X } from '@phosphor-icons/react'
+import { Play, VolumeX, VolumeHigh, InstagramLogo, WhatsappLogo, X } from '@phosphor-icons/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -37,17 +37,10 @@ const portfolioMedia = [
 
 export default function PortfolioModerno() {
     const containerRef = useRef<HTMLDivElement>(null)
-    const [activeFilter, setActiveFilter] = useState('Todos')
     const [selectedMedia, setSelectedMedia] = useState<any>(null)
     const [isMuted, setIsMuted] = useState(true)
     const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
     const [visibleVideos, setVisibleVideos] = useState<Set<string>>(new Set())
-
-    const categories = ['Todos', 'Realismo', 'Blackwork', 'Fine Line', 'Processo', 'Estúdio', 'Artista']
-
-    const filteredMedia = activeFilter === 'Todos'
-        ? portfolioMedia
-        : portfolioMedia.filter(item => item.category === activeFilter)
 
     // Observer para vídeos visíveis
     useEffect(() => {
@@ -77,7 +70,7 @@ export default function PortfolioModerno() {
         })
 
         return () => observer.disconnect()
-    }, [filteredMedia])
+    }, [])
 
     // Controlar play/pause dos vídeos baseado na visibilidade
     useEffect(() => {
@@ -120,21 +113,7 @@ export default function PortfolioModerno() {
             }
         )
 
-        // Animação do header
-        gsap.fromTo('.portfolio-header',
-            {
-                opacity: 0,
-                y: -50
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: 'power3.out'
-            }
-        )
-
-    }, [activeFilter])
+    }, [])
 
     const openModal = (media: any) => {
         setSelectedMedia(media)
@@ -152,78 +131,16 @@ export default function PortfolioModerno() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
-            {/* Header */}
-            <header className="portfolio-header fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
-                <div className="container mx-auto px-4 py-4">
-                    <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
-                        {/* Logo e Título */}
-                        <div className="flex items-center gap-4">
-                            <div className="relative w-12 h-12">
-                                <Image
-                                    src="/4.png"
-                                    alt="Arruas Tattoo"
-                                    fill
-                                    className="object-contain"
-                                />
-                            </div>
-                            <div>
-                                <h1 className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                                    Portfólio Arruas
-                                </h1>
-                                <p className="text-gray-400 text-sm">Arte em Movimento</p>
-                            </div>
-                        </div>
-
-                        {/* Filtros */}
-                        <div className="flex flex-wrap gap-2 justify-center max-w-2xl">
-                            {categories.map(category => (
-                                <button
-                                    key={category}
-                                    onClick={() => setActiveFilter(category)}
-                                    className={`px-3 py-2 rounded-full text-xs font-medium transition-all duration-300 border ${activeFilter === category
-                                            ? 'bg-white text-black border-white'
-                                            : 'bg-transparent text-gray-300 border-gray-600 hover:border-gray-400 hover:text-white'
-                                        }`}
-                                >
-                                    {category}
-                                </button>
-                            ))}
-                        </div>
-
-                        {/* Redes Sociais */}
-                        <div className="flex items-center gap-3">
-                            <a
-                                href="https://www.instagram.com/arruas_tattoo"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:scale-110 transition-transform"
-                            >
-                                <InstagramLogo size={20} />
-                            </a>
-                            <a
-                                href="https://wa.me/5561993263535"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2 px-3 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition-colors text-sm"
-                            >
-                                <WhatsappLogo size={16} />
-                                Agendar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
             {/* Conteúdo Principal */}
-            <div ref={containerRef} className="container mx-auto px-4 pt-32 pb-20">
+            <div ref={containerRef} className="container mx-auto px-4 py-8">
                 {/* Estatísticas */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-12 pt-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
                         {[
                             { number: '8+', label: 'Anos Exp' },
                             { number: '500+', label: 'Tatuagens' },
                             { number: '100%', label: 'Satisfação' },
-                            { number: filteredMedia.length, label: 'No Portfólio' }
+                            { number: portfolioMedia.length, label: 'No Portfólio' }
                         ].map((stat, index) => (
                             <div key={index} className="bg-gray-800/50 rounded-xl p-4 backdrop-blur-sm border border-gray-700">
                                 <div className="text-2xl font-bold text-white">{stat.number}</div>
@@ -235,7 +152,7 @@ export default function PortfolioModerno() {
 
                 {/* Grid de Mídia */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {filteredMedia.map((media, index) => (
+                    {portfolioMedia.map((media, index) => (
                         <div
                             key={`${media.src}-${index}`}
                             className="media-card group relative bg-gray-800 rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 cursor-pointer"
@@ -295,13 +212,6 @@ export default function PortfolioModerno() {
                         </div>
                     ))}
                 </div>
-
-                {/* Mensagem quando não há resultados */}
-                {filteredMedia.length === 0 && (
-                    <div className="text-center py-20">
-                        <div className="text-gray-400 text-lg">Nenhum trabalho encontrado nesta categoria.</div>
-                    </div>
-                )}
             </div>
 
             {/* Modal */}
@@ -393,7 +303,7 @@ export default function PortfolioModerno() {
                                     Seguir no Instagram
                                 </a>
                                 <a
-                                    href="https://wa.me/5561993263535"
+                                    href="https://wa.me/5561995668686"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2 px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition-colors"

@@ -320,7 +320,7 @@ export default function AboutStudio() {
             {/* Botão do WhatsApp flutuante
             <a
                 ref={whatsappRef}
-                href="https://wa.me/5561993263535"
+                href="https://wa.me/5561995668686"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fixed bottom-8 right-8 z-50 flex items-center gap-3 bg-gray-800 hover:bg-gray-700 text-white font-bold px-6 py-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 border border-gray-600"
