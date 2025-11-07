@@ -1,297 +1,347 @@
 'use client'
 
-import useEmblaCarousel from 'embla-carousel-react'
-import Image from 'next/image'
-import { useCallback, useEffect, useState } from 'react'
-import { ChevronLeft, ChevronRight, ZoomIn, X } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import Image from 'next/image'
+import {
+    InstagramLogo,
+    FacebookLogo,
+    Phone,
+    MapPin,
+    Clock,
+    WhatsappLogo,
+    Users,
+    ShieldCheck,
+    Medal
+} from '@phosphor-icons/react'
 
-type TattooWork = {
-    title: string
-    desc: string
-    image: string
-    style: string
-}
+export default function AboutStudio() {
+    const sectionRef = useRef(null)
+    const textRef = useRef(null)
+    const [activeVideo, setActiveVideo] = useState(0)
+    const [videoError, setVideoError] = useState<boolean[]>([])
 
-const tattooWorks: TattooWork[] = [
-    {
-        title: 'Fine Line',
-        desc: 'Tatuagem realista com profundidade e texturas impressionantes, demonstrando maestria técnica e atenção aos detalhes.',
-        image: '/tatoo1.jpeg',
-        style: 'Fine Line'
-    },
-    {
-        title: 'Tattoo Realista',
-        desc: 'Técnica única de realismo.',
-        image: '/tatoo2.jpeg',
-        style: 'Blackwork'
-    },
-    {
-        title: 'Realismo com Sombras',
-        desc: 'Jogo de realismo com sombreamento.',
-        image: '/tatoo4.jpeg',
-        style: 'Realismo'
-    },
-    {
-        title: 'Realismo com cores',
-        desc: 'Composição estrutural de cores e realismo com formas abstratas e pontilhismo.',
-        image: '/tatoo5.jpeg',
-        style: 'Realismo'
-    },
-    {
-        title: 'Detalhe Realista',
-        desc: 'Close-up demonstrando a precisão e qualidade do trabalho realista.',
-        image: '/tatoo6.jpeg',
-        style: 'Realismo'
-    },
-    {
-        title: 'Realismo Artístico',
-        desc: 'Técnica avançada de realismo criando texturas e padrões únicos.',
-        image: '/tatoo7.jpeg',
-        style: 'Realismo'
-    },
-]
+    // Verificar se os vídeos existem, caso contrário usar fallbacks
+    const studioVideos = [
+        "/bgstudio.mp4",
+        "/studio4.mp4",
+        "/studio5.mp4"
+    ]
 
-export default function PortfolioTattoos() {
-    const [emblaRef, emblaApi] = useEmblaCarousel({
-        loop: false,
-        align: 'center',
-        dragFree: true
-    })
-    const [selectedImage, setSelectedImage] = useState<string | null>(null)
-    const [selectedIndex, setSelectedIndex] = useState<number>(0)
-
-    const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi])
-    const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi])
+    const studioFeatures = [
+        {
+            icon: <ShieldCheck size={32} weight="fill" />,
+            title: "Ambiente Estéril",
+            description: "Seguimos rigorosos protocolos de higiene e esterilização"
+        },
+        {
+            icon: <Medal size={32} weight="fill" />,
+            title: "Artistas Qualificados",
+            description: "Profissionais com anos de experiência no mercado"
+        },
+        {
+            icon: <Users size={32} weight="fill" />,
+            title: "Atendimento Personalizado",
+            description: "Cada cliente recebe atenção exclusiva e dedicada"
+        }
+    ]
 
     useEffect(() => {
         AOS.init({
-            duration: 800,
+            duration: 1000,
             once: true,
-            easing: 'ease-in-out',
-            offset: 50
+            offset: 100
         })
+
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                textRef.current,
+                { opacity: 0, y: 60 },
+                { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0.3 }
+            )
+
+            // Animação para os cards de features
+            gsap.fromTo(
+                '.feature-card',
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    delay: 0.8,
+                    ease: 'power2.out'
+                }
+            )
+
+            // Animação para a logo
+            gsap.fromTo(
+                '.studio-logo',
+                { opacity: 0, scale: 0.8 },
+                { opacity: 1, scale: 1, duration: 1, ease: 'back.out(1.7)', delay: 0.5 }
+            )
+        }, sectionRef)
+
+        return () => ctx.revert()
     }, [])
 
-    const openModal = (image: string, index: number) => {
-        setSelectedImage(image)
-        setSelectedIndex(index)
-        document.body.style.overflow = 'hidden'
+    const handleVideoError = (index: number) => {
+        setVideoError(prev => {
+            const newErrors = [...prev]
+            newErrors[index] = true
+            return newErrors
+        })
     }
 
-    const closeModal = () => {
-        setSelectedImage(null)
-        document.body.style.overflow = 'unset'
+    const nextVideo = () => {
+        setActiveVideo((prev) => (prev + 1) % studioVideos.length)
     }
 
-    const navigateImage = (direction: 'prev' | 'next') => {
-        if (!selectedImage) return
-
-        let newIndex
-        if (direction === 'next') {
-            newIndex = (selectedIndex + 1) % tattooWorks.length
-        } else {
-            newIndex = (selectedIndex - 1 + tattooWorks.length) % tattooWorks.length
-        }
-
-        setSelectedImage(tattooWorks[newIndex].image)
-        setSelectedIndex(newIndex)
+    const prevVideo = () => {
+        setActiveVideo((prev) => (prev - 1 + studioVideos.length) % studioVideos.length)
     }
-
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (!selectedImage) return
-
-            if (e.key === 'Escape') closeModal()
-            if (e.key === 'ArrowRight') navigateImage('next')
-            if (e.key === 'ArrowLeft') navigateImage('prev')
-        }
-
-        window.addEventListener('keydown', handleKeyDown)
-        return () => window.removeEventListener('keydown', handleKeyDown)
-    }, [selectedImage, selectedIndex])
 
     return (
-        <>
-            <section className="relative py-20 overflow-hidden min-h-screen flex items-center">
-                {/* Background Video */}
-                <div className="absolute inset-0 -z-10">
+        <section
+            ref={sectionRef}
+            id="about-studio"
+            className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-gray-900 py-20"
+        >
+            {/* Vídeo de fundo principal com fallback */}
+            <div className="absolute top-0 left-0 w-full h-full">
+                {!videoError[activeVideo] ? (
                     <video
+                        className="w-full h-full object-cover opacity-40"
+                        src={studioVideos[activeVideo]}
                         autoPlay
                         loop
                         muted
                         playsInline
-                        className="w-full h-full object-cover"
-                    >
-                        <source src="/bg.mp4" type="video/mp4" />
-                    </video>
-                    {/* Overlay para melhor contraste */}
-                    <div className="absolute inset-0 bg-black/60"></div>
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/70"></div>
-                </div>
+                        key={activeVideo}
+                        onError={() => handleVideoError(activeVideo)}
+                    />
+                ) : (
+                    // Fallback caso o vídeo não carregue
+                    <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 opacity-40" />
+                )}
+            </div>
 
-                <div className="container mx-auto px-4 relative z-10">
-                    {/* Header */}
-                    <div className="text-center mb-16" data-aos="fade-up">
-                        <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-                            Portfólio de Tatuagens
-                        </h2>
-                        <p className="text-gray-300 max-w-3xl mx-auto text-lg md:text-xl leading-relaxed">
-                            Explore a <span className="text-white font-semibold">excelência técnica</span> e
-                            <span className="text-white font-semibold"> arte única</span> de Ricardo Arruas.
-                            Cada tatuagem conta uma história de precisão, criatividade e dedicação.
-                        </p>
+            {/* Overlay gradiente dark */}
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/60 to-gray-900/80 z-10"></div>
+
+            {/* Conteúdo principal */}
+            <div className="relative z-20 w-full max-w-7xl px-4 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+                    {/* Coluna esquerda - Texto e informações */}
+                    <div
+                        ref={textRef}
+                        className="text-white space-y-8"
+                    >
+                        <div data-aos="fade-right">
+                            {/* Logo e Título */}
+                            <div className="flex flex-col items-center lg:items-start mb-8">
+                                <div className="studio-logo mb-6">
+                                    <div className="relative w-32 h-32 lg:w-40 lg:h-40">
+                                        <Image
+                                            src="/4.png"
+                                            alt="Arruas Tattoo Studio"
+                                            fill
+                                            className="object-contain drop-shadow-2xl"
+                                            priority
+                                            onError={(e) => {
+                                                // Fallback para logo
+                                                e.currentTarget.style.display = 'none'
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center lg:text-left bg-gradient-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent">
+                                    Sobre o Estúdio
+                                </h2>
+                                <p className="text-lg text-gray-400 text-center lg:text-left mt-2">
+                                    Arruas Tattoo
+                                </p>
+                            </div>
+
+                            <p className="text-lg md:text-xl leading-relaxed mb-6 text-gray-300">
+                                No <strong className="text-white">Arruas Tattoo</strong>, acreditamos que tatuar é eternizar sentimentos.
+                                Cada traço conta uma história feita com arte, técnica e respeito absoluto.
+                            </p>
+
+                            <p className="text-lg md:text-xl leading-relaxed mb-8 text-gray-300">
+                                Nosso espaço foi cuidadosamente projetado para proporcionar o máximo de conforto,
+                                segurança e inspiração. Utilizamos apenas materiais de primeira linha e seguimos
+                                rigorosos protocolos de higiene para garantir a melhor experiência.
+                            </p>
+                        </div>
+
+                        {/* Cards de features */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                            {studioFeatures.map((feature, index) => (
+                                <div
+                                    key={index}
+                                    className="feature-card bg-gray-800/80 backdrop-blur-sm rounded-lg p-4 border border-gray-700 hover:border-gray-500 transition-all duration-300 hover:bg-gray-800/90"
+                                    data-aos="zoom-in"
+                                    data-aos-delay={index * 200}
+                                >
+                                    <div className="text-gray-300 mb-2">
+                                        {feature.icon}
+                                    </div>
+                                    <h3 className="font-semibold text-white mb-1 text-sm">
+                                        {feature.title}
+                                    </h3>
+                                    <p className="text-xs text-gray-400">
+                                        {feature.description}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Informações de contato */}
+                        <div className="space-y-4 text-base md:text-lg" data-aos="fade-up">
+                            <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg border border-gray-700 hover:border-gray-600 transition-all">
+                                <MapPin size={24} weight="fill" className="text-gray-300 flex-shrink-0" />
+                                <div className="text-left">
+                                    <p className="font-semibold text-white">Ed. Lê Quartier</p>
+                                    <p className="text-gray-400 text-sm">
+                                        Av. Pau Brasil, 10 - Sala 1708<br />
+                                        Águas Claras, Brasília - DF<br />
+                                        CEP: 71926-000
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg border border-gray-700 hover:border-gray-600 transition-all">
+                                <Phone size={24} weight="fill" className="text-gray-300 flex-shrink-0" />
+                                <div className="text-left">
+                                    <p className="font-semibold text-white">(61) 99566-8686</p>
+                                    <p className="text-gray-400 text-sm">Atendimento por telefone e WhatsApp</p>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg border border-gray-700 hover:border-gray-600 transition-all">
+                                <Clock size={24} weight="fill" className="text-gray-300 flex-shrink-0" />
+                                <div className="text-left">
+                                    <p className="font-semibold text-white">Aberto 24 horas</p>
+                                    <p className="text-gray-400 text-sm">Agendamento flexível para sua conveniência</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Redes sociais */}
+                        <div className="flex gap-6 mt-8" data-aos="fade-up">
+                            <a
+                                href="https://www.instagram.com/arruas_tattoo"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:scale-110 transition-all duration-300 bg-gray-800 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600"
+                            >
+                                <InstagramLogo size={28} weight="fill" className="text-white" />
+                            </a>
+
+                            <a
+                                href="https://www.facebook.com/arruastattoo?locale=pt_BR"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:scale-110 transition-all duration-300 bg-gray-800 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600"
+                            >
+                                <FacebookLogo size={28} weight="fill" className="text-white" />
+                            </a>
+                        </div>
                     </div>
 
-                    {/* Carousel */}
-                    <div className="relative" data-aos="fade-up" data-aos-delay="200">
-                        {/* Navigation Buttons */}
-                        <button
-                            onClick={scrollPrev}
-                            className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-6 z-20 p-3 bg-white/10 backdrop-blur-sm shadow-lg rounded-full hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/30 hover:shadow-xl"
-                            aria-label="Anterior"
-                        >
-                            <ChevronLeft className="h-5 w-5 text-white" />
-                        </button>
+                    {/* Coluna direita - Controles de vídeo */}
+                    <div className="space-y-6" data-aos="fade-left">
+                        {/* Player de vídeo principal */}
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-800 border border-gray-700">
+                            {!videoError[activeVideo] ? (
+                                <video
+                                    className="w-full h-auto max-h-[500px] object-cover"
+                                    src={studioVideos[activeVideo]}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    onError={() => handleVideoError(activeVideo)}
+                                />
+                            ) : (
+                                <div className="w-full h-64 bg-gray-700 flex items-center justify-center">
+                                    <p className="text-gray-400 text-lg">Vídeo não disponível</p>
+                                </div>
+                            )}
 
-                        <button
-                            onClick={scrollNext}
-                            className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-6 z-20 p-3 bg-white/10 backdrop-blur-sm shadow-lg rounded-full hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/30 hover:shadow-xl"
-                            aria-label="Próximo"
-                        >
-                            <ChevronRight className="h-5 w-5 text-white" />
-                        </button>
-
-                        {/* Carousel Container */}
-                        <div ref={emblaRef} className="overflow-hidden cursor-grab active:cursor-grabbing">
-                            <div className="flex gap-6 md:gap-8 px-4">
-                                {tattooWorks.map((work, index) => (
-                                    <div
+                            {/* Controles de navegação */}
+                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                                {studioVideos.map((_, index) => (
+                                    <button
                                         key={index}
-                                        className="flex-[0_0_85%] md:flex-[0_0_380px] lg:flex-[0_0_420px] bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 border border-white/20 hover:border-white/30 overflow-hidden group"
-                                        data-aos="zoom-in"
-                                        data-aos-delay={index * 100}
-                                    >
-                                        {/* Image Container */}
-                                        <div
-                                            className="relative h-80 md:h-96 bg-gray-900/50 overflow-hidden cursor-pointer"
-                                            onClick={() => openModal(work.image, index)}
-                                        >
-                                            <Image
-                                                src={work.image}
-                                                alt={work.title}
-                                                fill
-                                                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                            />
-
-                                            {/* Overlay */}
-                                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
-                                                <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                                                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 shadow-lg border border-white/30">
-                                                        <ZoomIn className="h-6 w-6 text-white" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* Style Badge */}
-                                            <div className="absolute top-4 left-4">
-                                                <span className="px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full text-xs font-semibold text-white border border-white/30">
-                                                    {work.style}
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Content */}
-                                        <div className="p-6 md:p-8">
-                                            <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
-                                                {work.title}
-                                            </h3>
-                                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                                                {work.desc}
-                                            </p>
-                                        </div>
-                                    </div>
+                                        onClick={() => setActiveVideo(index)}
+                                        className={`w-3 h-3 rounded-full transition-all duration-300 ${index === activeVideo
+                                            ? 'bg-white scale-125'
+                                            : 'bg-gray-500 hover:bg-gray-400'
+                                            }`}
+                                    />
                                 ))}
                             </div>
-                        </div>
-                    </div>
 
-                    {/* CTA Section */}
-                    <div className="text-center mt-16" data-aos="fade-up" data-aos-delay="400">
-                        <p className="text-gray-300 mb-6 text-lg">
-                            Pronto para transformar sua ideia em arte?
-                        </p>
-                        <a
-                            href="https://wa.me/5561993263535"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-3 bg-white hover:bg-gray-100 text-gray-900 font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                        >
-                            Agendar Consulta
-                            <ChevronRight className="h-5 w-5" />
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            {/* Modal */}
-            {selectedImage && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm p-4">
-                    <div className="relative max-w-6xl max-h-[90vh] w-full">
-                        {/* Close Button */}
-                        <button
-                            onClick={closeModal}
-                            className="absolute -top-12 right-0 z-50 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300 backdrop-blur-sm"
-                        >
-                            <X className="h-6 w-6 text-white" />
-                        </button>
-
-                        {/* Navigation Buttons */}
-                        <button
-                            onClick={() => navigateImage('prev')}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300 backdrop-blur-sm"
-                        >
-                            <ChevronLeft className="h-6 w-6 text-white" />
-                        </button>
-
-                        <button
-                            onClick={() => navigateImage('next')}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300 backdrop-blur-sm"
-                        >
-                            <ChevronRight className="h-6 w-6 text-white" />
-                        </button>
-
-                        {/* Image */}
-                        <div className="relative w-full h-[80vh] bg-black rounded-2xl overflow-hidden">
-                            <Image
-                                src={selectedImage}
-                                alt={tattooWorks[selectedIndex].title}
-                                fill
-                                className="object-contain"
-                            />
+                            {/* Botões de navegação */}
+                            <button
+                                onClick={prevVideo}
+                                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700/80 text-white p-3 rounded-full transition-all duration-300 border border-gray-600"
+                            >
+                                ‹
+                            </button>
+                            <button
+                                onClick={nextVideo}
+                                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800/80 hover:bg-gray-700/80 text-white p-3 rounded-full transition-all duration-300 border border-gray-600"
+                            >
+                                ›
+                            </button>
                         </div>
 
-                        {/* Image Info */}
-                        <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                            <h3 className="text-white font-bold text-lg mb-1">
-                                {tattooWorks[selectedIndex].title}
-                            </h3>
-                            <p className="text-gray-300 text-sm">
-                                {tattooWorks[selectedIndex].desc}
+                        {/* Miniaturas dos vídeos */}
+                        <div className="grid grid-cols-3 gap-3">
+                            {studioVideos.map((video, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setActiveVideo(index)}
+                                    className={`relative rounded-lg overflow-hidden transition-all duration-300 border ${index === activeVideo
+                                        ? 'border-white scale-105'
+                                        : 'border-gray-600 opacity-60 hover:opacity-100 hover:scale-105'
+                                        }`}
+                                >
+                                    {!videoError[index] ? (
+                                        <video
+                                            className="w-full h-20 object-cover"
+                                            src={video}
+                                            muted
+                                            playsInline
+                                            onError={() => handleVideoError(index)}
+                                        />
+                                    ) : (
+                                        <div className="w-full h-20 bg-gray-700 flex items-center justify-center">
+                                            <p className="text-gray-400 text-xs">Não disponível</p>
+                                        </div>
+                                    )}
+                                    <div className="absolute inset-0 bg-black/40 hover:bg-black/20 transition-all duration-300" />
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Descrição do vídeo */}
+                        <div className="text-center">
+                            <p className="text-gray-400 text-sm">
+                                {activeVideo === 0 && "Tour pelo nosso estúdio - Ambiente principal"}
+                                {activeVideo === 1 && "Área de trabalho - Cabines individuais"}
+                                {activeVideo === 2 && "Processo de esterilização - Segurança em primeiro lugar"}
                             </p>
-                            <div className="flex justify-between items-center mt-2">
-                                <span className="px-3 py-1 bg-white/20 rounded-full text-xs text-white">
-                                    {tattooWorks[selectedIndex].style}
-                                </span>
-                                <span className="text-gray-400 text-sm">
-                                    {selectedIndex + 1} / {tattooWorks.length}
-                                </span>
-                            </div>
                         </div>
                     </div>
                 </div>
-            )}
-        </>
+            </div>
+        </section>
     )
 }
