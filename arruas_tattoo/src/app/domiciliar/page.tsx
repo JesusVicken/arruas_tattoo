@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import Image from 'next/image'
-import { Play, VolumeX, VolumeHigh, InstagramLogo, WhatsappLogo, X } from '@phosphor-icons/react'
+import { Play, SpeakerSimpleX, SpeakerSimpleHigh, InstagramLogo, WhatsappLogo, X } from '@phosphor-icons/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -234,7 +234,8 @@ export default function PortfolioModerno() {
                                     onClick={toggleMute}
                                     className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
                                 >
-                                    {isMuted ? <VolumeX size={20} /> : <VolumeHigh size={20} />}
+                                    {isMuted ? <SpeakerSimpleX size={20} /> : <SpeakerSimpleHigh size={20} />}
+
                                 </button>
                             </div>
                         )}
