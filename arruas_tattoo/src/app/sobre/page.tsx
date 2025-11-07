@@ -68,15 +68,15 @@ export default function SobrePage() {
         },
         {
             type: "image",
-            src: "/tatoo2.jpeg",
-            alt: "Tattoo Realismo colorido",
+            src: "/tatoo6.jpeg",
+            alt: "Tattoo Realismo",
             title: "Trabalho feito com cores vibrantes e preto e cinza"
         },
         {
             type: "video",
-            src: "/arruas8.mp4",
-            alt: "Técnica de hachura",
-            title: "Técnica Hachura"
+            src: "/arruas14.mp4",
+            alt: "Tattoo Personalizada para seu jeito",
+            title: "Tattoo Personalizadas"
         },
         {
             type: "image",

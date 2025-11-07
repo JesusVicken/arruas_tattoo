@@ -62,9 +62,9 @@ export default function MateriaisDigitais() {
             <div className="container mx-auto px-4">
                 {/* Cabeçalho */}
                 <div className="text-center mb-12" data-aos="fade-up">
-                    <h2 className="text-4xl font-bold mb-4 text-white">Modelos Digitais de Tatuagem</h2>
+                    <h2 className="text-4xl font-bold mb-4 text-white">Artes Disponíveis</h2>
                     <p className="text-zinc-300 max-w-2xl mx-auto text-base">
-                        Explore os <span className="text-white font-semibold">modelos digitais exclusivos</span> criados por <span className="text-white font-semibold">Ricardo Arruas</span>.
+                        Explore os <span className="text-white font-semibold">modelos de artes disponíveis e exclusivos</span> criados por <span className="text-white font-semibold">Ricardo Arruas</span>.
                         Cada arte foi desenvolvida com técnica e estilo próprio para inspirar e ajudar na escolha da sua próxima tatuagem.
                     </p>
                 </div>
