@@ -124,7 +124,7 @@ export default function PortfolioTattoos() {
                         playsInline
                         className="w-full h-full object-cover"
                     >
-                        <source src="/arruas1.mp4" type="video/mp4" />
+                        <source src="/bg.mp4" type="video/mp4" />
                     </video>
                     {/* Overlay para melhor contraste */}
                     <div className="absolute inset-0 bg-black/60"></div>
@@ -223,12 +223,12 @@ export default function PortfolioTattoos() {
                             Pronto para transformar sua ideia em arte?
                         </p>
                         <a
-                            href="https://wa.me/556195668686"
+                            href="https://wa.me/5561993263535"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-3 bg-white hover:bg-gray-100 text-gray-900 font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
                         >
-                            Agendar horário
+                            Agendar Consulta
                             <ChevronRight className="h-5 w-5" />
                         </a>
                     </div>
