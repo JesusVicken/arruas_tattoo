@@ -40,7 +40,7 @@ const tattooWorks: TattooWork[] = [
         style: 'Realismo'
     },
     {
-        title: 'Detalhe Realista',
+        title: 'Sombreado Realista',
         desc: 'Close-up demonstrando a precisão e qualidade do trabalho realista.',
         image: '/tatoo6.jpeg',
         style: 'Realismo'
@@ -87,14 +87,12 @@ export default function PortfolioTattoos() {
 
     const navigateImage = (direction: 'prev' | 'next') => {
         if (!selectedImage) return
-
         let newIndex
         if (direction === 'next') {
             newIndex = (selectedIndex + 1) % tattooWorks.length
         } else {
             newIndex = (selectedIndex - 1 + tattooWorks.length) % tattooWorks.length
         }
-
         setSelectedImage(tattooWorks[newIndex].image)
         setSelectedIndex(newIndex)
     }
@@ -102,12 +100,10 @@ export default function PortfolioTattoos() {
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (!selectedImage) return
-
             if (e.key === 'Escape') closeModal()
             if (e.key === 'ArrowRight') navigateImage('next')
             if (e.key === 'ArrowLeft') navigateImage('prev')
         }
-
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [selectedImage, selectedIndex])
@@ -115,20 +111,22 @@ export default function PortfolioTattoos() {
     return (
         <>
             <section className="relative py-20 overflow-hidden min-h-screen flex items-center">
-                {/* Background Video */}
+                {/* 🔥 Background MP4 com overlay e fallback */}
                 <div className="absolute inset-0 -z-10">
                     <video
+                        className="absolute top-0 left-0 w-full h-full object-cover opacity-70"
                         autoPlay
                         loop
                         muted
                         playsInline
-                        className="w-full h-full object-cover"
+                        preload="auto"
                     >
-                        <source src="/bg.mp4" type="video/mp4" />
+                        <source src="/arruas14.mp4" type="video/mp4" />
+                        Seu navegador não suporta vídeos em background.
                     </video>
-                    {/* Overlay para melhor contraste */}
+                    {/* Overlay e gradiente */}
                     <div className="absolute inset-0 bg-black/60"></div>
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/70"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80"></div>
                 </div>
 
                 <div className="container mx-auto px-4 relative z-10">
@@ -146,24 +144,19 @@ export default function PortfolioTattoos() {
 
                     {/* Carousel */}
                     <div className="relative" data-aos="fade-up" data-aos-delay="200">
-                        {/* Navigation Buttons */}
                         <button
                             onClick={scrollPrev}
                             className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-6 z-20 p-3 bg-white/10 backdrop-blur-sm shadow-lg rounded-full hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/30 hover:shadow-xl"
-                            aria-label="Anterior"
                         >
                             <ChevronLeft className="h-5 w-5 text-white" />
                         </button>
-
                         <button
                             onClick={scrollNext}
                             className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-6 z-20 p-3 bg-white/10 backdrop-blur-sm shadow-lg rounded-full hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/30 hover:shadow-xl"
-                            aria-label="Próximo"
                         >
                             <ChevronRight className="h-5 w-5 text-white" />
                         </button>
 
-                        {/* Carousel Container */}
                         <div ref={emblaRef} className="overflow-hidden cursor-grab active:cursor-grabbing">
                             <div className="flex gap-6 md:gap-8 px-4">
                                 {tattooWorks.map((work, index) => (
@@ -173,7 +166,6 @@ export default function PortfolioTattoos() {
                                         data-aos="zoom-in"
                                         data-aos-delay={index * 100}
                                     >
-                                        {/* Image Container */}
                                         <div
                                             className="relative h-80 md:h-96 bg-gray-900/50 overflow-hidden cursor-pointer"
                                             onClick={() => openModal(work.image, index)}
@@ -184,8 +176,6 @@ export default function PortfolioTattoos() {
                                                 fill
                                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
-
-                                            {/* Overlay */}
                                             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
                                                 <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                                                     <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 shadow-lg border border-white/30">
@@ -193,16 +183,12 @@ export default function PortfolioTattoos() {
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            {/* Style Badge */}
                                             <div className="absolute top-4 left-4">
                                                 <span className="px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full text-xs font-semibold text-white border border-white/30">
                                                     {work.style}
                                                 </span>
                                             </div>
                                         </div>
-
-                                        {/* Content */}
                                         <div className="p-6 md:p-8">
                                             <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
                                                 {work.title}
@@ -217,7 +203,6 @@ export default function PortfolioTattoos() {
                         </div>
                     </div>
 
-                    {/* CTA Section */}
                     <div className="text-center mt-16" data-aos="fade-up" data-aos-delay="400">
                         <p className="text-gray-300 mb-6 text-lg">
                             Pronto para transformar sua ideia em arte?
@@ -235,34 +220,28 @@ export default function PortfolioTattoos() {
                 </div>
             </section>
 
-            {/* Modal */}
+            {/* Modal de visualização */}
             {selectedImage && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm p-4">
                     <div className="relative max-w-6xl max-h-[90vh] w-full">
-                        {/* Close Button */}
                         <button
                             onClick={closeModal}
                             className="absolute -top-12 right-0 z-50 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300 backdrop-blur-sm"
                         >
                             <X className="h-6 w-6 text-white" />
                         </button>
-
-                        {/* Navigation Buttons */}
                         <button
                             onClick={() => navigateImage('prev')}
                             className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300 backdrop-blur-sm"
                         >
                             <ChevronLeft className="h-6 w-6 text-white" />
                         </button>
-
                         <button
                             onClick={() => navigateImage('next')}
                             className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all duration-300 backdrop-blur-sm"
                         >
                             <ChevronRight className="h-6 w-6 text-white" />
                         </button>
-
-                        {/* Image */}
                         <div className="relative w-full h-[80vh] bg-black rounded-2xl overflow-hidden">
                             <Image
                                 src={selectedImage}
@@ -271,8 +250,6 @@ export default function PortfolioTattoos() {
                                 className="object-contain"
                             />
                         </div>
-
-                        {/* Image Info */}
                         <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
                             <h3 className="text-white font-bold text-lg mb-1">
                                 {tattooWorks[selectedIndex].title}

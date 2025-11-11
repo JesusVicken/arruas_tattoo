@@ -90,7 +90,7 @@ export default function ContactSectionArruas() {
                 {/* Header */}
                 <div className="text-center mb-16 lg:mb-20" data-aos="fade-down">
                     <h2 className="text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                        Contatos do Arruas Tattoo
+                        Nossos Contatos
                     </h2>
                     <p className="text-xl lg:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
                         Transforme sua ideia em uma obra de arte permanente

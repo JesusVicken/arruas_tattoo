@@ -64,7 +64,7 @@ export default function Contact() {
                             </p>
                             <p className="flex items-center justify-center md:justify-start gap-2">
                                 <Phone className="text-gray-700 w-5 h-5" />
-                                (61) 9566-8686
+                                (61) 99566-8686
                             </p>
                             <p className="flex items-start justify-center md:justify-start gap-2">
                                 <MapPin className="text-gray-700 w-5 h-5 flex-shrink-0" />

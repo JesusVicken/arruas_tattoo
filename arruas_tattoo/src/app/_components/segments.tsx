@@ -21,7 +21,7 @@ const tattooModels: TattooModel[] = [
         image: '/desenho1.jpeg',
     },
     {
-        title: 'Minimalismo',
+        title: 'Realismo',
         desc: 'Desenhos simples, elegantes e com traços limpos. Ideais para quem busca leveza e significado em cada linha.',
         image: '/desenho2.jpeg',
     },
@@ -36,12 +36,12 @@ const tattooModels: TattooModel[] = [
         image: '/desenho4.jpeg',
     },
     {
-        title: 'Misticismo',
+        title: 'Realismo',
         desc: 'Criações autorais com elementos simbólicos e toque de surrealismo, trazendo mistério e energia às tatuagens.',
         image: '/desenho5.jpeg',
     },
     {
-        title: 'Guerreiros e Mitologia',
+        title: 'Oriental',
         desc: 'Modelos que representam força, coragem e história, com traços marcantes e grande impacto visual.',
         image: '/desenho6.jpeg',
     },
