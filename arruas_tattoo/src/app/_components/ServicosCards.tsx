@@ -208,12 +208,12 @@ export default function PortfolioTattoos() {
                             Pronto para transformar sua ideia em arte?
                         </p>
                         <a
-                            href="https://wa.me/5561993263535"
+                            href="https://wa.me/5561995668686"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-3 bg-white hover:bg-gray-100 text-gray-900 font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
                         >
-                            Agendar Consulta
+                            Agendar Tattoo
                             <ChevronRight className="h-5 w-5" />
                         </a>
                     </div>
