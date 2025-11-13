@@ -311,7 +311,7 @@ export default function PortfolioModerno() {
                                     className="flex items-center gap-2 px-4 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
                                 >
                                     <WhatsappLogo size={20} />
-                                    Agendar Consulta
+                                    Agendar Tattoo
                                 </a>
                             </div>
                         </div>
