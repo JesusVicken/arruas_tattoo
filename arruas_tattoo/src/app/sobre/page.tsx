@@ -83,8 +83,15 @@ export default function SobrePage() {
             src: "/tatoo5.jpeg",
             alt: "Tatuagem realista com cores",
             title: "Realismo Detalhado"
+        },
+         {
+            type: "video",
+            src: "/arruas16.mp4",
+            alt: "Tatuagem Realista ",
+            title: "Realismo"
         }
     ]
+    
 
     return (
         <main className="bg-white">
